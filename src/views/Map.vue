@@ -21,12 +21,12 @@ export default {
         { name: "jakas nazwa", lng: 12.550343, lat: 55.665957 },
         { name: "lalal", lng: 12.553591056720677, lat: 55.69724654625975 },
         {
-          name: "jakas asdasd",
+          name: "Jophe New",
           lng: 12.657072075932007,
           lat: 56.193764659779646,
         },
         {
-          name: "i cos tam jeszcze",
+          name: "Small town",
           lat: 55.73953323876651,
           lng: 11.88926150438476,
         },
@@ -45,6 +45,26 @@ export default {
           lat: 5.202764,
           lng: -53.859161,
         },
+        {
+          name: "Geraldine Hartman",
+          lat: 42.343686,
+          lng: -28.840189,
+        },
+        {
+          name: "Bright Bright",
+          lat: -45.295107,
+          lng: 129.394814,
+        },
+        {
+          name: "Liz Carroll",
+          lat: -73.364314,
+          lng: -63.766475,
+        },
+        {
+          name: "Jackson Hurst",
+          lat: 78.432495,
+          lng: -167.966394,
+        },
       ],
       clicked: null,
     };
@@ -61,6 +81,12 @@ export default {
 </script>
 
 <style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
 .container {
   max-height: 100vh;
   max-width: 100vw;
