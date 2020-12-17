@@ -1,18 +1,36 @@
 <template>
-  <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png" />
-    <HelloWorld msg="Welcome to Your Vue.js App" />
+  <div class="container-fluid banner ">
+    <div class="row">
+      <!-- banner -->
+      <home-navbar></home-navbar>
+      <!-- end -->
+      <div class="col-md-8 offset-md-2 info HomeLower">
+        <h1 class="text-center">WHERE HAVE I BEEN</h1>
+        <p class="text-center animate__animated animate__bounce pt-3">
+          Lorem ipsum dolor sit amet, consectetur adipisicing
+        </p>
+        <div class="d-flex justify-content-evenly pt-5">
+          <button type="button" class="btn btn-lg btn-info mr-2 btnHomeOpacity">
+            JOIN TO US
+          </button>
+          <button type="button" class="btn btn-lg btn-light btnHomeOpacity">
+            INFORMATION
+          </button>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
-// @ is an alias to /src
-import HelloWorld from "@/components/HelloWorld.vue";
+import HomeNavbar from "../components/Home/HomeNavbar.vue";
 
 export default {
   name: "Home",
-  components: {
-    HelloWorld
-  }
+  components: { HomeNavbar },
 };
 </script>
+
+<style>
+@import "../components/Home/home.css";
+</style>
