@@ -15,7 +15,32 @@ const routes = [
     // which is lazy-loaded when the route is visited.
     component: () =>
       import(/* webpackChunkName: "about" */ "../views/About.vue")
-  }
+  },
+  {
+    path: "/userProfile",
+    name: "userProfile",
+    component: () => import( "../views/ProfileSettingsView/UserProfile.vue")
+  },
+  {
+    path: "/userProfile/changePassword",
+    name: "changePassword",
+    component: () => import( "../views/ProfileSettingsView/changePassword.vue")
+  },
+  {
+    path: "/userProfile/email",
+    name: "changeEmail",
+    component: () => import( "../views/ProfileSettingsView/ProfileEmail.vue")
+  },
+  {
+    path: "/userProfile/profileDescription",
+    name: "profilDescription",
+    component: () => import( "../views/ProfileSettingsView/profilDescription.vue")
+  },
+  {
+    path: "/userProfile/profileDeleteAccount",
+    name: "profileDeleteAccount",
+    component: () => import( "../views/ProfileSettingsView/ProfileDeleteAccount.vue")
+  },
 ];
 
 const router = createRouter({

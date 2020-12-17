@@ -1,0 +1,83 @@
+<template>
+  <div class="card text-center my-5">
+    <div class="card-header">
+      <ul class="nav nav-tabs card-header-tabs">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="true" href="#">My profile</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Profile settings</a>
+        </li>
+      </ul>
+    </div>
+    <div class="card-body">
+      <!-- start -->
+      <div class="form-group row">
+        <label for="inputEmail3" class="col-sm-2 col-form-label"
+          >EMAIL <strong>ADDRESS</strong></label
+        >
+        <div class="col-sm-10">
+          <input
+            type="email"
+            class="form-control"
+            id="inputEmail3"
+            placeholder="Email"
+          />
+        </div>
+      </div>
+      <!-- end -->
+      <p class="mt-4">CONNECT WITH</p>
+      <div class="imgOr mt-5">
+        <img
+          src="../../assets/facebook-f-brands.svg"
+          alt="facebook"
+          class="logoImgProfile photoImg1"
+        />
+        OR
+        <img
+          src="../../assets/google-brands.svg"
+          alt="facebook"
+          class="logoImgProfile photoImg2"
+        />
+      </div>
+      <button type="button" class="btn btn-primary mt-5">Save</button>
+    </div>
+  </div>
+</template>
+
+<script>
+export default {};
+</script>
+
+<style>
+body {
+  background-image: url("../../assets/sunset-sky-dark-night.jpg");
+}
+.logoImgProfile {
+  width: 50px;
+  height: 50px;
+}
+
+.menuSetting {
+  opacity: 0.9;
+}
+
+.photoImg1 {
+  margin-right: 105px;
+}
+
+.photoImg2 {
+  margin-left: 105px;
+}
+
+@media (min-width: 320px) {
+  .photoImg1 {
+    margin-right: 25px;
+  }
+
+  .photoImg2 {
+    margin-left: 25px;
+  }
+}
+
+</style>
