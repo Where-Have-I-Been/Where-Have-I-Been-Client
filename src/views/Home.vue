@@ -1,5 +1,5 @@
 <template>
-  <div class="container-fluid banner ">
+<div class="container-fluid banner ">
     <div class="row">
       <!-- banner -->
       <home-navbar></home-navbar>
@@ -24,11 +24,10 @@
 
 <script>
 import HomeNavbar from "../components/Home/HomeNavbar.vue";
-
 export default {
-  name: "Home",
+  name: "Home",  
   components: { HomeNavbar },
-};
+};  
 </script>
 
 <style>
