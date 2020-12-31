@@ -1,14 +1,14 @@
 <template>
   <div>
-    <div class="card mb-3">
+    <div class="card mb-3 mb-4">
       <div class="row g-0">
-        <div class="col-md-4">
-          <img src="../../assets/avatar2.jpg" alt="..." class="notiJpg" />
+        <div class="col-md-4 text-center">
+          <img src="../../assets/avatar2.jpg" alt="..." class="notiJpg pt-3" />
         </div>
         <div class="col-md-8">
           <div class="card-body">
-            <h5 class="card-title">Someone add new Trip!</h5>
-            <p class="card-text textWidth">
+            <h2 class="card-title">Someone add new Trip!</h2>
+            <p class="card-text textWidth text-justify">
               The group will gather for breakfast in our open-air eating area,
               following which TBF staff will lead the group in a few fun
               icebreakers and name-games. This will be your first opportunity to
@@ -22,7 +22,7 @@
             <p class="card-text">
               <small class="text-muted">Last updated 3 mins ago</small>
             </p>
-            <button type="button" class="btn btn-outline-primary">
+            <button type="button" class="btn btn-outline-primary btn-lg">
               See this Trip
             </button>
           </div>
@@ -43,22 +43,18 @@ export default {};
 }
 
 .imageWidth {
-  width: 25%;
+  width: 22%;
 }
 
-@media (max-width: 850px) {
+@media (max-width: 820px) {
   .textWidth {
     width: 100%;
     float: none;
   }
   .imageWidth {
-    width: 50%;
-    left:50%;
+    width: 20%;
+    left:20%;
     margin: auto;
   }
-}
-
-.notiJpg {
-  width: 100%;
 }
 </style>
