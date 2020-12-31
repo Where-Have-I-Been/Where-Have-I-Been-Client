@@ -18,7 +18,7 @@
       </ul>
     </div>
     <div class="card-body">
-      <div class="input-group">
+      <div class="input-group w-75 mx-auto">
         <span class="input-group-text">Search User</span>
         <input
           type="text"
@@ -57,7 +57,7 @@
         <li class="page-item">
           <a class="page-link" href="#ad" @click="page = 2">3</a>
         </li>
-        <li class="page-item" :class="{ disabled: page == coutnEl }">
+        <li class="page-item" :class="{ disabled: page == 2 }">
           <a class="page-link" href="#ad" @click="page += 1">Next</a>
         </li>
       </ul>

@@ -1,7 +1,9 @@
 <template>
-  <nav-bar></nav-bar>
-  <div class="container pt-3">
-    <c-tmp></c-tmp>
+  <div class="containerForCommunityUser pb-3">
+    <nav-bar></nav-bar>
+    <div class="container pt-3">
+      <c-tmp></c-tmp>
+    </div>
   </div>
 </template>
 
