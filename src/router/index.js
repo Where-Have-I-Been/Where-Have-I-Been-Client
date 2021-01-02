@@ -32,6 +32,11 @@ const routes = [
     component: () => import( "../views/ProfileSettingsView/ProfileDeleteAccount.vue")
   },
   {
+    path: "/feed",
+    name: "Feed",
+    component: () => import( "../views/Feed.vue")
+  },
+  {
     path: "/community",
     name: "Community",
     component: () => import( "../views/Community.vue")
