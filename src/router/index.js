@@ -31,6 +31,16 @@ const routes = [
     name: "profileDeleteAccount",
     component: () => import( "../views/ProfileSettingsView/ProfileDeleteAccount.vue")
   },
+  {
+    path: "/community",
+    name: "Community",
+    component: () => import( "../views/Community.vue")
+  },
+  {
+    path: "/community/users",
+    name: "CommunityUsers",
+    component: () => import( "../views/CommunityuUser.vue")
+  },
 ];
 
 const router = createRouter({

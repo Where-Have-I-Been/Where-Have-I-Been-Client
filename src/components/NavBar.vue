@@ -23,6 +23,9 @@
       v-bind:class="{ show: toggleCollapse }"
       >
         <ul class="navbar-nav text-rigth">
+
+        <ul class="nav navbar-nav navbar-right text-rigth">
+
           <li class="nav-item dropdown">
             <a
               class="nav-link dropdown-toggle"
@@ -33,6 +36,8 @@
               aria-expanded="false"
               @click="ToogleMenu()"
             >
+              <i class="fas fa-envelope navbar-brand"><span class="badge badge-primary notifColor">12</span></i>
+
               <img src="../assets/avatar2.jpg" class="rounded-circle navAvatar" alt="" />
               Janek Kowalski
             </a>
@@ -76,5 +81,9 @@ export default {
 .navAvatar {
   width: 50px;
   height:40px;
+}
+
+.notifColor {
+  color:red;
 }
 </style>
