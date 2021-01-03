@@ -1,0 +1,112 @@
+@import url("https://fonts.googleapis.com/css?family=Numans");
+
+html,
+body {
+  background-image: url("http://getwallpapers.com/wallpaper/full/a/5/d/544750.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  height: 100%;
+  font-family: "Numans", sans-serif;
+}
+
+.container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.card {
+  min-height: 350px;
+  margin-top: auto;
+  margin-bottom: auto;
+  width: 400px;
+  background-color: white !important;
+  opacity: 0.8;
+}
+
+.card-header h3 {
+  color: white;
+}
+
+.input-group-prepend span {
+  width: 50px;
+  background-color: #ffc312;
+  color: black;
+  border: 0 !important;
+}
+
+input:focus {
+  outline: 1 1 1 1 !important;
+  box-shadow: 1 1 1 1 !important;
+}
+
+.remember {
+  color: black;
+}
+
+.remember input {
+  width: 20px;
+  height: 20px;
+  margin-left: 15px;
+  margin-right: 5px;
+}
+
+.login_btn {
+  color: black;
+  background-color: #69b9ff;
+  width: 100px;
+  transition: 0.3s linear;
+  margin-top: 2%;
+  margin-bottom: 5%;
+}
+
+.login_btn:hover {
+  color: white;
+  background-color: #4a95ff;
+  transition: 0.3s linear;
+  margin-top: 2%;
+  margin-bottom: 5%;
+}
+
+.input-login,
+.input-pass {
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid #000000;
+  transition: 0.3s linear;
+}
+
+.input-pass {
+  margin-top: 40px;
+  margin-bottom: 30px;
+}
+
+.links {
+  color: white;
+}
+
+.links a {
+  margin-left: 4px;
+}
+
+.form-control {
+  border-bottom: 1px solid #ddd;
+}
+
+.hrdivider {
+  position: relative;
+  margin-bottom: 20px;
+  width: 100%;
+  text-align: center;
+}
+
+.hrdivider span {
+  position: absolute;
+  top: -11px;
+  background: #fff;
+  padding-left: 20;
+  padding-top: 0;
+  font-weight: bold;
+  font-size: 16px;
+}

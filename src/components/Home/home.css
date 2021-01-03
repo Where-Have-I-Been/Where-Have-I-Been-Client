@@ -1,0 +1,117 @@
+.exploreMap {
+    width: 60%;
+    float: right;
+  }
+
+  body {
+    margin: 0;
+    padding: 0;
+    background: #fff;
+    font-family: "Raleway", sans-serif;
+    color: #fff;
+  }
+  .banner {
+    min-height: 100vh;
+    width: 100%;
+    background: url("../../assets/nightsky(1).jpg");
+    background-position: top;
+    background-size: cover;
+    background-repeat: no-repeat;
+  }
+  .banner .navbar {
+    margin-top: 4%;
+  }
+  .banner .navbar-brand {
+    color: #fff;
+    font-size: 1.8em;
+    font-weight: 300;
+    margin-left: 10%;
+  }
+  .banner .nav {
+    margin-right: 10%;
+  }
+  .banner .nav li a {
+    color: #aaa;
+    font-size: 1.2em;
+  }
+  .banner .info {
+    margin-top: 15%;
+    transform: translateY(-15%);
+  }
+  .banner .info h1 {
+    font-size: 2.8em;
+    font-weight: 300;
+    color: #fff;
+    letter-spacing: 3px;
+  }
+  .banner .info p {
+    font-size: 1em;
+    font-weight: 100;
+    color: #33a0ff;
+    letter-spacing: 2px;
+    text-transform:  uppercase;
+  }
+  .banner .info a {
+    margin-left: 50%;
+    transform: translateX(-50%);
+    color: #fff;
+    background: #e91d43;
+    padding: 10px 20px;
+    font-size: 1em;
+    font-weight: 600;
+  }
+  .banner .info a:hover {
+    background: #e91e63;
+  }
+
+  .btnHomeOpacity{
+    opacity: 0.8;
+  }
+
+  .HomeLower {
+    padding-top: 10vh;
+  }
+  .btn.btn-lg.btn-info.mr-2.btnHomeOpacity{
+    color: #fff;
+    background-color: #69b9ff;
+    border-color: #69b9ff; 
+    width:200px;
+    margin-left: 33%;
+    font-weight: lighter;
+    white-space: nowrap;
+  }
+  .btn.btn-lg.btn-info.mr-2.btnHomeOpacity:hover {
+    color: #fff;
+    background-color: #33a0ff;
+    border-color: #33a0ff; 
+    width:200px; 
+    font-weight: lighter;
+    white-space: nowrap;
+  }
+
+  .btn.btn-lg.btn-light.btnHomeOpacity{
+    color: #fff;
+    background-color: #b3b3b3;
+    border-color: #b3b3b3; 
+    width:200px;
+    margin-right: 22%;   
+  }
+  .btn.btn-lg.btn-light.btnHomeOpacity:hover{
+    color: #fff;
+    background-color: #d9d9d9;
+    border-color: #d9d9d9; 
+    width:200px;   
+  }
+  .pt-3{
+    padding-top: 0.1rem !important;
+  }
+  .pt-5{
+    padding-top: 1rem !important;
+  
+  }
+  btn-group-lg>.btn, .btn-lg {
+    padding: .5rem 0.5rem;
+    font-size: 1rem;
+    border-radius: .3rem;
+    margin-bottom: 28%;
+}
