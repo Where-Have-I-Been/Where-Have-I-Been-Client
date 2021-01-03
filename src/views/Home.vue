@@ -10,9 +10,8 @@
           Lorem ipsum dolor sit amet, consectetur adipisicing
         </p>
         <div class="d-flex justify-content-evenly pt-5">
-          <button type="button" class="btn btn-lg btn-info mr-2 btnHomeOpacity">
-            JOIN TO US
-          </button>
+          <router-link class="btn btn-lg btn-info mr-2 btnHomeOpacity" to="/register">JOIN TO US
+          </router-link>         
           <button type="button" class="btn btn-lg btn-light btnHomeOpacity">
             INFORMATION
           </button>
