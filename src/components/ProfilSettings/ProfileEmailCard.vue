@@ -10,13 +10,13 @@
     <div class="card-body">
       <!-- start -->
       <div class="form-group row">
-        <label for="inputEmail3" class="col-sm-2 col-form-label"
-          >EMAIL<br><strong>ADDRESS</strong></label
+        <label for="inputEmail3" class="col-sm-2 col-form-label EmailLabelInput"
+          >EMAIL<br /><strong>ADDRESS</strong></label
         >
         <div class="col-sm-10">
           <input
             type="email"
-            class="form-control"
+            class="form-control EmailInput"
             id="inputEmail3"
             placeholder="Email"
           />
@@ -47,7 +47,6 @@ export default {};
 </script>
 
 <style>
-
 .logoImgProfile {
   width: 50px;
   height: 50px;
@@ -58,27 +57,34 @@ export default {};
 }
 
 .photoImg1 {
-  margin-right: 105px;
+  margin-right: 20px;
 }
 
 .photoImg2 {
-  margin-left: 105px;
+  margin-left: 20px;
 }
 
-@media (min-width: 320px) {
-  .photoImg1 {
-    margin-right: 25px;
+@media (min-width: 576px) and (max-width: 959px){
+  .EmailLabelInput {
+    min-width: 90%;
   }
 
-  .photoImg2 {
-    margin-left: 25px;
+  .EmailInput{
+    margin-left: 10%;
+  }
+}
+
+@media (max-width: 475px) {
+  .EmailLabelInput {
+    min-width: 15rem;
+  }
+  .EmailInput{
+    margin-left: 0;
   }
 }
 .card.text-center.my-5 {
-    margin-right: 2rem;
-    margin-left: 2rem;
-    margin-top: 6rem !important;
+  margin-right: 2rem;
+  margin-left: 2rem;
+  margin-top: 6rem !important;
 }
-
-
 </style>
