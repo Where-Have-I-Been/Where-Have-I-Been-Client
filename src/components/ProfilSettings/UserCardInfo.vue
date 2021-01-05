@@ -38,4 +38,7 @@ export default {
   background-color: mediumturquoise;
   color:white;
 }
+a {
+  text-decoration: none;
+}
 </style>

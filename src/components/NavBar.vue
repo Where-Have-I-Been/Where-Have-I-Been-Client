@@ -1,7 +1,7 @@
 <template>
   <nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top">
     <div class="container-fluid">
-      <a class="navbar-brand" href="#">Navbar</a>
+      <a class="navbar-brand" href="#">WHIB</a>
       <button
         class="navbar-toggler"
         type="button"
@@ -52,8 +52,9 @@
             </ul>
           </li>
         </ul>
+      </ul>
       </div>
-    </div>
+     </div>
   </nav>
 </template>
 
@@ -85,5 +86,8 @@ export default {
 
 .notifColor {
   color:red;
+}
+.navbar-brand{
+  padding-left: 1rem;
 }
 </style>

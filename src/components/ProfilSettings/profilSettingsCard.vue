@@ -5,9 +5,7 @@
         <li class="nav-item">
           <a class="nav-link active" aria-current="true" href="#">My profile</a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Profile settings</a>
-        </li>
+        
       </ul>
     </div>
     <div class="card-body">
@@ -24,7 +22,7 @@
       <div class="">
         <input-text name="FULLNAME"></input-text>
         <input-text name="USERNAME"></input-text>
-        <select-input name="GENDER" :value="['man','woman']"></select-input>
+        <select-input name="GENDER" :value="['Male','Female']"></select-input>
         <input-date name="BRITH DATE"></input-date>
         <input-text name="COUNTRY"></input-text>
       </div>
@@ -47,5 +45,8 @@ export default {
 .imgSettingCard {
   width: 30%;
   height: 20%;
+}
+.my-5{
+  padding: 0 1rem 1rem 1rem;
 }
 </style>

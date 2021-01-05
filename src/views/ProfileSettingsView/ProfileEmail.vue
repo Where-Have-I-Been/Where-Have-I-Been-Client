@@ -49,12 +49,15 @@ export default {
 }
 
 .itemSetting:hover {
-  background-color: blue;
-  color:white;
+  font-weight: bolder;
+
+}
+.router-link-active.router-link-exact-active {
+color:white;
 }
 
 .opacityCardRight {
-  background-image: url('../../assets/sunset-sky-dark-night.jpg');
+  background-image: url('../../assets/nightsky(1).jpg');
   background-repeat: no-repeat;
   background-size: cover;
 }

@@ -21,4 +21,8 @@ export default {};
 .btnchngPass {
   text-align: center;
 }
+.card.mt-5{
+  margin-top: 10rem !important;
+  margin: 10rem 2rem 0 2rem;
+ }
 </style>

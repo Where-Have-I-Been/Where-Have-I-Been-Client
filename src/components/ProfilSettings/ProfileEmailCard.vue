@@ -5,16 +5,13 @@
         <li class="nav-item">
           <a class="nav-link active" aria-current="true" href="#">My profile</a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Profile settings</a>
-        </li>
       </ul>
     </div>
     <div class="card-body">
       <!-- start -->
       <div class="form-group row">
         <label for="inputEmail3" class="col-sm-2 col-form-label"
-          >EMAIL <strong>ADDRESS</strong></label
+          >EMAIL<br><strong>ADDRESS</strong></label
         >
         <div class="col-sm-10">
           <input
@@ -50,9 +47,7 @@ export default {};
 </script>
 
 <style>
-body {
-  background-image: url("../../assets/sunset-sky-dark-night.jpg");
-}
+
 .logoImgProfile {
   width: 50px;
   height: 50px;
@@ -79,5 +74,11 @@ body {
     margin-left: 25px;
   }
 }
+.card.text-center.my-5 {
+    margin-right: 2rem;
+    margin-left: 2rem;
+    margin-top: 6rem !important;
+}
+
 
 </style>
