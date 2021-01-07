@@ -2,9 +2,21 @@
   <div class="col-md-12">
     <nav class="navbar navbar-md">
       <div class="navbar-brand textBrandNav">WHIB</div>
-      <ul class="nav">
+      <ul class="nav" v-if="user">
         <li class="nav-item">
-          <router-link class="nav-link itemsNavBarHome" to="/login">SIGN UP</router-link>
+          <router-link
+            class="nav-link itemsNavBarHome"
+            to="/"
+            @click="handleClick"
+            >Log out</router-link
+          >
+        </li>
+      </ul>
+      <ul class="nav" v-else>
+        <li class="nav-item">
+          <router-link class="nav-link itemsNavBarHome" to="/login"
+            >SIGN UP</router-link
+          >
         </li>
         <li class="nav-item itemsNavBarHome">
           <router-link class="nav-link" to="/register">SIGN IN</router-link>
@@ -15,8 +27,19 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex";
+
 export default {
   name: "HomeNavBar",
+  methods: {
+    handleClick() {
+      localStorage.removeItem("token");
+      this.$router.push("/");
+    },
+  },
+  computed: {
+    ...mapGetters(["user"]),
+  },
 };
 </script>
 

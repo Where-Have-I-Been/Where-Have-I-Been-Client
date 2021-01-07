@@ -1,19 +1,29 @@
 <template>
   <div class="card-body">
-    <form>
+    <div class="alert alert-danger" role="alert" v-if="errorPass">
+      {{ errorPass[0] }}
+    </div>
+    <div class="alert alert-danger" role="alert" v-if="errorEmail">
+      {{ errorEmail[0] }}
+    </div>
+    <form @submit.prevent="handleSubmit">
       <div class="input-group form-group">
         <input
           type="text"
           class="form-control input-login mt-2 mb-3"
           placeholder="Username"
+          required
+          v-model="username"
         />
       </div>
 
       <div class="input-group form-group">
         <input
-          type="text"
+          type="email"
           class="form-control input-login mt-2 mb-3"
           placeholder="E-mail"
+          required
+          v-model="email"
         />
       </div>
 
@@ -22,6 +32,8 @@
           type="password"
           class="form-control input-pass mt-2 mb-3"
           placeholder="Password"
+          required
+          v-model="password"
         />
       </div>
 
@@ -30,6 +42,8 @@
           type="password"
           class="form-control input-pass mt-2 mb-5"
           placeholder="Confirm password"
+          required
+          v-model="password_confirmation"
         />
       </div>
       <div class="form-group">
@@ -59,8 +73,39 @@
 </template>
 
 <script>
+import axios from "axios";
+
 export default {
   name: "Register",
+  data() {
+    return {
+      username: "",
+      email: "",
+      password: "",
+      password_confirmation: "",
+      errorEmail: null,
+      errorPass: null,
+    };
+  },
+  methods: {
+    async handleSubmit() {
+      try {
+        const response = await axios.post("register", {
+          username: this.username,
+          email: this.email,
+          password: this.password,
+          password_confirmation: this.password_confirmation,
+        });
+
+        console.log(response);
+
+        this.$router.push("/login");
+      } catch (e) {
+        this.errorEmail = e.response.data.data.email;
+        this.errorPass = e.response.data.data.password;
+      }
+    },
+  },
 };
 </script>
 
@@ -79,7 +124,7 @@ h2 span {
   font-size: 1rem;
   padding: 0 10px;
 }
-.image-auth{
+.image-auth {
   width: 35px;
   height: 35px;
   margin: 18px 0 16px;

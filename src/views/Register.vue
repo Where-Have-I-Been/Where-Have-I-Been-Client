@@ -1,6 +1,6 @@
 <template>
   <div>
-  <auth>
+  <auth class="regComponent">
     <registerComponent></registerComponent>
   </auth>
   </div>
