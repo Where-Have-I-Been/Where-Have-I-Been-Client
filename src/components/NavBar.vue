@@ -48,7 +48,7 @@
                 aria-labelledby="navbarDropdownMenuLink"
                 v-bind:class="{ show: toggleMenu }"
               >
-                <router-link to="/profile" class="dropdown-item"
+                <router-link to="/profil" class="dropdown-item"
                   >Profile</router-link
                 >
                 <router-link to="/" class="dropdown-item" @click="handleLogout"

@@ -11,10 +11,10 @@
           Lorem ipsum dolor sit amet, consectetur adipisicing
         </p>
         <!-- LOGGED -->
-        <div class="d-flex justify-content-center flex-nowrap pt-5" v-if="user">
+        <div class="d-flex justify-content-evenly pt-5" v-if="user">
           <router-link
-            class="btn btn-lg btn-info mr-2 btnHomeOpacity profile"
-            to="/profile"
+            class="btn btn-lg btn-info mr-2 btnHomeOpacity"
+            to="/profil"
             >PROFILE
           </router-link>
           <router-link
@@ -57,6 +57,7 @@ export default {
       },
     });
     this.$store.dispatch("user", response.data);
+    localStorage.setItem("userID", response.data.data.id);
   },
   computed: {
     ...mapGetters(["user"]),

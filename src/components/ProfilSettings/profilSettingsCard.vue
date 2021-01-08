@@ -5,39 +5,113 @@
         <li class="nav-item">
           <a class="nav-link active" aria-current="true" href="#">My profile</a>
         </li>
-        
       </ul>
     </div>
     <div class="card-body">
       <!-- start -->
-      <div class="d-flex p-2 bd-highlight">
-        <img
-          src="../../assets/avatar2.jpg"
-          alt="img"
-          class="imgSettingCard rounded-circle"
-        />
-        <div class="p-2 bd-highlight"><input class="form-control" type="file" id="formFile"></div>
-        <div class="p-2 bd-highlight"><button type="button" class="btn btn-danger">Delete</button></div>
-      </div>
-      <div class="">
-        <input-text name="FULLNAME"></input-text>
-        <input-text name="USERNAME"></input-text>
-        <select-input name="GENDER" :value="['Male','Female']"></select-input>
-        <input-date name="BRITH DATE"></input-date>
-        <input-text name="COUNTRY"></input-text>
-      </div>
+      <form @submit.prevent="handleSubmit">
+        <input-text name="USERNAME" @username="getUsername"></input-text>
+        <select-input
+          name="GENDER"
+          :value="['Male', 'Female']"
+          @gender="getGender"
+        ></select-input>
+        <input-date name="BRITH DATE" @date="getDate"></input-date>
+        <contries-dropdown
+          name="CONTRIES"
+          :value="countries"
+          @country="getCountry"
+        ></contries-dropdown>
+        <button
+          type="submit"
+          class="btn btn-success mt-3"
+          @click="handleSubmit"
+        >
+          Save
+        </button>
+      </form>
       <!-- end -->
     </div>
   </div>
 </template>
 
 <script>
-import inputText from './inputText.vue';
-import SelectInput from './SelectInput.vue';
-import inputDate from './inputDate.vue';
+import axios from "axios";
+import inputText from "./inputText.vue";
+import SelectInput from "./SelectInput.vue";
+import inputDate from "./inputDate.vue";
+import ContriesDropdown from "./ContriesDropdown.vue";
+import { mapGetters } from "vuex";
 
 export default {
-  components: {inputText, SelectInput, inputDate}
+  name: "Profil Settings Card",
+  data() {
+    return {
+      user: null,
+      cardData: {
+        name: "",
+        gender: "",
+        country_id: null,
+        birth_date: null,
+        image: null,
+      },
+      countries: [],
+    };
+  },
+  components: { inputText, SelectInput, inputDate, ContriesDropdown },
+  async created() {
+    const response = await axios.get("countries");
+    this.countries = response.data.data;
+
+    const res = await axios.get("users", {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+    });
+    this.$store.dispatch("user", res.data);
+    this.user = res.data;
+  },
+  methods: {
+    async handleSubmit() {
+      try {
+        const response = await axios.put(
+          "profiles/" + localStorage.getItem("userID"),
+          this.cardData,
+          {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("token")}`,
+            },
+          }
+        );
+        console.log(response);
+      } catch (e) {
+        console.log(e);
+      }
+    },
+    getUsername(data) {
+      this.cardData.name = data;
+    },
+    getGender(data) {
+      this.cardData.gender = data;
+    },
+    getCountry(data) {
+      this.cardData.country_id = data;
+    },
+    getDate(data) {
+      this.cardData.birth_date = data;
+    },
+    getFile(event) {
+      this.cardData.image = event.target.files[0];
+      console.log(URL.createObjectURL(event.target.files[0]));
+    },
+    computed: {
+      ...mapGetters(["user"]),
+    },
+    mounted() {
+      this.handleUser();
+      this.$store.dispatch("user", this.user);
+    },
+  },
 };
 </script>
 
@@ -46,7 +120,7 @@ export default {
   width: 30%;
   height: 20%;
 }
-.my-5{
+.my-5 {
   padding: 0 1rem 1rem 1rem;
 }
 </style>

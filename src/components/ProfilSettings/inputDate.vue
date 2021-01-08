@@ -3,8 +3,9 @@
     <input
       class="form-control"
       type="date"
-      value="1998-16-12"
       id="example-date-input"
+      v-model="date"
+      @change="emitDate(date)"
     />
     <label for="floatingInput">{{ name }}</label>
   </div>
@@ -12,7 +13,17 @@
 
 <script>
 export default {
+  data() {
+    return {
+      date: null,
+    };
+  },
   props: { name: String },
+  methods: {
+    emitDate(data) {
+      this.$emit("date", data);
+    },
+  },
 };
 </script>
 

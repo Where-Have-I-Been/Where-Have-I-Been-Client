@@ -70,7 +70,8 @@ export default {
         });
 
         localStorage.setItem("token", response.data.token);
-        this.$store.dispatch("user", response.data.user);
+        localStorage.setItem("user", response.data);
+        this.$store.dispatch("user", response.data);
         this.$router.push("/");
       } catch (e) {
         this.error = e.response.data.message;
