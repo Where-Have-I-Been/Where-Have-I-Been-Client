@@ -46,11 +46,13 @@
     letter-spacing: 3px;
   }
   .banner .info p {
-    font-size: 1em;
-    font-weight: 100;
-    color: #33a0ff;
+    font-size: 1.3em;
+    font-weight: 200;
+    color: #2289fd;
     letter-spacing: 2px;
     text-transform:  uppercase;
+    text-shadow: .5px .5px black;
+    
   }
   .banner .info a {
     margin-left: 50%;
@@ -73,7 +75,6 @@
     padding-top: 10vh;
   }
   .btn.btn-lg.btn-info.mr-2.btnHomeOpacity{
-    color: #fff;
     background-color: #69b9ff;
     border-color: #69b9ff; 
     width:200px;
@@ -89,14 +90,41 @@
     font-weight: lighter;
     white-space: nowrap;
   }
-
-  .routerMap {
-    color: #fff;
-    background-color: #b3b3b3;
-    border-color: #b3b3b3; 
+  .btn.btn-lg.btn-info.mr-2.btnHomeOpacity.profile{
+    
+    background-color: #69b9ff;
+    border-color: #69b9ff; 
     width:200px;
-    margin-right: 22%;
+   margin-right:auto;
+    font-weight: lighter;
+    white-space: nowrap;
+    }
+    .btn.btn-lg.btn-info.mr-2.btnHomeOpacity.profile:hover{
+    
+      background-color: #33a0ff;
+      border-color: #33a0ff; 
+      width:200px;
+     margin-right:auto;
+      font-weight: lighter;
+      white-space: nowrap;
+      }
+  .btn.btn-lg.btn-info.mr-2.btnHomeOpacity.routerMap {
+    color: #fff;
+    background-color: #69b9ff;
+    border-color: #69b9ff; 
+    width:200px;
+    margin-left: 20px;
+    margin-right: auto;
   }
+  .btn.btn-lg.btn-info.mr-2.btnHomeOpacity.routerMap:hover {
+    color: #fff;
+    background-color: #33a0ff; 
+    border-color: #33a0ff; 
+    width:200px;
+    margin-left: 20px;
+    margin-right: auto;
+  }
+
 
   .btn.btn-lg.btn-light.btnHomeOpacity{
     color: #fff;
@@ -109,7 +137,8 @@
     color: #fff;
     background-color: #d9d9d9;
     border-color: #d9d9d9; 
-    width:200px;   
+    width:200px;  
+     
   }
   .pt-3{
     padding-top: 0.1rem !important;

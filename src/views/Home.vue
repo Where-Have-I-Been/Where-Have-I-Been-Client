@@ -11,9 +11,9 @@
           Lorem ipsum dolor sit amet, consectetur adipisicing
         </p>
         <!-- LOGGED -->
-        <div class="d-flex justify-content-evenly pt-5" v-if="user">
+        <div class="d-flex justify-content-center flex-nowrap pt-5" v-if="user">
           <router-link
-            class="btn btn-lg btn-info mr-2 btnHomeOpacity"
+            class="btn btn-lg btn-info mr-2 btnHomeOpacity profile"
             to="/profile"
             >PROFILE
           </router-link>
