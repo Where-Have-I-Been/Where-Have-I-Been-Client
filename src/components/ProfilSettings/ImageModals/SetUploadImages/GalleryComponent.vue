@@ -4,7 +4,7 @@
 </template>
 
 <script>
-import setPhotoImage from './SetPhotoImage.vue';
+import setPhotoImage from "./SetPhotoImage.vue";
 
 export default {
   name: "Gallery Component",

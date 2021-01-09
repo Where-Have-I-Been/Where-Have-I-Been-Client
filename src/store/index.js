@@ -4,6 +4,7 @@ export default createStore({
   state: {
     user: null,
     PhotoURL: [],
+    profile: null,
   },
   getters: {
     user: (state) => {
@@ -11,7 +12,10 @@ export default createStore({
     },
     PhotoURL: (state) => {
       return state.PhotoURL;
-    }
+    },
+    profile: (state) => {
+      return state.profile;
+    },
   },
   mutations: {
     user(state, user){
@@ -19,6 +23,9 @@ export default createStore({
     },
     PhotoURL(state, url){
       state.PhotoURL.push(url);
+    },
+    profile(state, profile){
+      state.PhotoURL = profile;
     }
   },
   actions: {
@@ -27,6 +34,9 @@ export default createStore({
     },
     PhotoURL(context, url){
       context.commit("PhotoURL", url);
+    },
+    profile(context, profile){
+      context.commit("profile", profile);
     }
   },
   modules: {}

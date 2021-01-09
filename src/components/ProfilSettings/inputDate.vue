@@ -3,15 +3,17 @@
     <input
       class="form-control"
       type="date"
-      id="example-date-input"
+      id="DateID"
       v-model="date"
       @change="emitDate(date)"
     />
-    <label for="floatingInput">{{ name }}</label>
+    <label for="DateID" v-if="user">Date od birth: {{ user.data.birth_date }}</label>
+    <label for="DateID" v-else>{{ name }}</label>
   </div>
 </template>
 
 <script>
+import { mapGetters } from "vuex";
 export default {
   data() {
     return {
@@ -23,6 +25,9 @@ export default {
     emitDate(data) {
       this.$emit("date", data);
     },
+  },
+  computed: {
+    ...mapGetters(["user"]),
   },
 };
 </script>

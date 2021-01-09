@@ -63,13 +63,16 @@ export default {
     const response = await axios.get("countries");
     this.countries = response.data.data;
 
-    const res = await axios.get("users", {
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem("token")}`,
-      },
-    });
+    const res = await axios.get(
+      "profiles/" + localStorage.getItem("userID") + "?representation=private",
+      {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      }
+    );
     this.$store.dispatch("user", res.data);
-    this.user = res.data;
+    localStorage.setItem("name", res.data.data.name)
   },
   methods: {
     async handleSubmit() {

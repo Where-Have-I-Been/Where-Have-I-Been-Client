@@ -51,13 +51,27 @@ export default {
   },
   components: { HomeNavbar },
   async created() {
-    const response = await axios.get("users", {
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem("token")}`,
-      },
-    });
+    const response = await axios.get(
+      "profiles/" + localStorage.getItem("userID") + "?representation=private",
+      {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      }
+    );
     this.$store.dispatch("user", response.data);
-    localStorage.setItem("userID", response.data.data.id);
+    // localStorage.setItem("userID", response.data.data.id);
+
+    // const getPrivateProfile = await axios.get(
+    //   "profiles/" + localStorage.getItem("userID") + "?representation=private",
+    //   {
+    //     headers: {
+    //       Authorization: `Bearer ${localStorage.getItem("token")}`,
+    //     },
+    //   }
+    // );
+    // console.log(getPrivateProfile.data.data);
+    // this.$store.dispatch("profile", getPrivateProfile.data.data);
   },
   computed: {
     ...mapGetters(["user"]),

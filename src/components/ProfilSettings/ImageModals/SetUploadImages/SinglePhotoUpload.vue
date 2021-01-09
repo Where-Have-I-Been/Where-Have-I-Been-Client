@@ -10,6 +10,7 @@
 </template>
 
 <script>
+import axios from "axios";
 export default {
   name: "single photo Upload",
   data() {
@@ -17,9 +18,25 @@ export default {
   },
   props: { UploadImage: null, url: null },
   methods: {
-    handleUpload() {
+    async handleUpload() {
       console.log("upload");
-      this.$store.dispatch("PhotoURL", this.url);
+      // this.$store.dispatch("PhotoURL", this.url);
+
+      try {
+        const response = await axios.put(
+          "profiles/" + localStorage.getItem("userID"),
+          { image: this.UploadImage },
+          {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("token")}`,
+            },
+          }
+        );
+        this.$store.dispatch("PhotoURL", response.data.data);
+        console.log(response);
+      } catch (e) {
+        console.log(e);
+      }
     },
   },
 };

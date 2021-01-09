@@ -10,11 +10,14 @@
       <!-- <option selected>{{name}}</option> -->
       <option v-for="(v, i) in value" :key="i">{{ v }}</option>
     </select>
-    <label for="floatingSelect">{{ name }}</label>
+    <label for="floatingInput" v-if="user">Gender: {{ user.data.gender }}</label>
+    <label for="floatingInput" v-else>{{ name }}</label>
   </div>
 </template>
 
 <script>
+import { mapGetters } from "vuex";
+
 export default {
   name: "Select gender",
   data() {
@@ -27,6 +30,9 @@ export default {
     emitGender(data) {
       this.$emit("gender", data);
     },
+  },
+  computed: {
+    ...mapGetters(["user", "profile"])
   },
 };
 </script>

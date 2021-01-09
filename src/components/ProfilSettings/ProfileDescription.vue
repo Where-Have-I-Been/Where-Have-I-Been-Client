@@ -1,25 +1,63 @@
 <template>
   <div class="card mt-5">
-    <h5 class="card-header text-center">PROFILE DESCRIPTION</h5>
-    <div class="card-body">
-      <div class="form-floating">
-        <textarea
-          class="form-control"
-          placeholder="Leave a comment here"
-          id="floatingTextarea2"
-          style="height: 100px"
-        ></textarea>
-        <label for="floatingTextarea2">Change your description</label>
+    <form @submit.prevent="handleSubmit">
+      <div class="card-body">
+        <h5 class="card-header text-center">PROFILE DESCRIPTION</h5>
+        <div class="form-floating">
+          <textarea
+            class="form-control"
+            placeholder="Leave a comment here"
+            id="floatingTextarea2"
+            style="height: 100px"
+            v-model="description"
+            required
+          ></textarea>
+          <label for="floatingTextarea2" v-if="user">{{
+            user.date.description
+          }}</label>
+          <label for="floatingTextarea2" v-else>Description</label>
+        </div>
       </div>
-    </div>
       <div class="d-flex justify-content-center pb-3">
-        <button type="button" class="btn btn-info btnchngPass">EDIT</button>
+        <input type="submit" class="btn btn-info btnchngPass" value="EDIT" />
       </div>
+    </form>
   </div>
 </template>
 
 <script>
-export default {};
+import axios from "axios";
+import { mapGetters } from "vuex";
+
+export default {
+  name: "Profle Description",
+  data() {
+    return {
+      description: "",
+    };
+  },
+  methods: {
+    async handleSubmit() {
+      try {
+        const response = await axios.put(
+          "profiles/" + localStorage.getItem("userID"),
+          { description: this.description },
+          {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("token")}`,
+            },
+          }
+        );
+        console.log(response);
+      } catch (e) {
+        console.log(e);
+      }
+    },
+  },
+  computed: {
+    ...mapGetters(["user"]),
+  },
+};
 </script>
 
 <style>

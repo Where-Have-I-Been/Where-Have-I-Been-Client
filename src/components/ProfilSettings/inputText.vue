@@ -4,17 +4,16 @@
       type="text"
       class="form-control"
       id="floatingInput"
-      placeholder="name@example.com"
-      required
       v-model="Username"
       @change="emitUserName(Username)"
     />
-    <label for="floatingInput">{{ name }}</label>
+    <label for="floatingInput" v-if="user">Username: {{ user.data.name }}</label>
+    <label for="floatingInput" v-else>{{ name }}</label>
   </div>
 </template>
 
 <script>
-import {mapGetters} from 'vuex';
+import { mapGetters } from "vuex";
 
 export default {
   name: "UserName input",

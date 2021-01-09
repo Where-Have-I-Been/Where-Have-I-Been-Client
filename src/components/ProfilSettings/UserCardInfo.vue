@@ -33,7 +33,7 @@
     </ul>
   </div>
   <!-- change avatar -->
-  <p class="text-center fs-4">{{ Username }}</p>
+  <p class="text-center fs-4" v-if="Username">{{ Username }}</p>
   <div class="links mt-4">
     <ul class="list-group list-group-flush">
       <li
@@ -80,7 +80,7 @@
 
 <script>
 import setImageModal from "./ImageModals/setImageModal.vue";
-// import { mapGetters } from "vuex";
+import { mapGetters } from "vuex";
 
 export default {
   components: { setImageModal },
@@ -89,16 +89,13 @@ export default {
     return {
       showActive: false,
       setImageModal: false,
-      Username: this.user,
+      Username: localStorage.getItem("name"),
     };
   },
   props: { active: String },
-  // computed: {
-  //   ...mapGetters(["user"]),
-  // },
-  updated() {
-    this.Username = this.$store.state.user.data.name;
-  }
+  computed: {
+    ...mapGetters(["user"], ["profile"]),
+  },
 };
 </script>
 

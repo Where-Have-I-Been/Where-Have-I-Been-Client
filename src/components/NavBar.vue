@@ -40,7 +40,8 @@
                   class="rounded-circle navAvatar"
                   alt=""
                 />
-                Janek Kowalski
+                <span v-if="name">{{ name }}</span>
+                <span v-else>Profil</span>
               </a>
               <!-- show na dole -->
               <ul
@@ -72,6 +73,7 @@ export default {
     return {
       toggleCollapse: false,
       toggleMenu: false,
+      name: localStorage.getItem("name"),
     };
   },
   methods: {
@@ -81,10 +83,10 @@ export default {
     ToggleCollapse() {
       this.toggleCollapse = !this.toggleCollapse;
     },
-    handleLogout(){
+    handleLogout() {
       localStorage.removeItem("token");
       this.$router.push("/");
-    }
+    },
   },
   computed: {
     ...mapGetters(["user"]),

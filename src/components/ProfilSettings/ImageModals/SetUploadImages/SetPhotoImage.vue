@@ -7,7 +7,7 @@
           class="card-img-top uploadImage pb-4"
           alt="selectPhoto"
           :class="{ selected: isActive == i }"
-          @click="mouseDownSelect(i)"
+          @click="handleSetAvatar(i)"
         />
       </div>
     </div>
@@ -16,6 +16,7 @@
 
 <script>
 import { mapGetters } from "vuex";
+import axios from "axios";
 
 export default {
   name: "Set Photo Image",
@@ -25,8 +26,22 @@ export default {
     };
   },
   methods: {
-    mouseDownSelect(url) {
+    async handleSetAvatar(url) {
       this.isActive = url;
+
+      try {
+        const response = await axios.get(
+          "profiles/" + localStorage.getItem("userID"),
+          {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("token")}`,
+            },
+          }
+        );
+        console.log(response);
+      } catch (e) {
+        console.log(e);
+      }
     },
   },
   computed: {
