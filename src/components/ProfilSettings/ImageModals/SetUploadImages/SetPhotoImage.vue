@@ -1,13 +1,18 @@
 <template>
   <div class="container">
     <div class="card-columns ColumnPhotoImage scroll">
-      <div class="card cardPhotoImage" v-for="(photo, i) in PhotoURL" :key="i">
+      <div
+        class="card cardPhotoImage"
+        v-for="(image, i) in images"
+        :key="i"
+        @change="handleSetAvatar"
+      >
         <img
-          :src="photo"
+          :src="images[i].url"
           class="card-img-top uploadImage pb-4"
           alt="selectPhoto"
           :class="{ selected: isActive == i }"
-          @click="handleSetAvatar(i)"
+          @click="setAvatarImage(images[i].photo_id)"
         />
       </div>
     </div>
@@ -25,13 +30,16 @@ export default {
       isActive: null,
     };
   },
+  props: { images: null },
+  computed: {
+    ...mapGetters(["PhotoURL"]),
+  },
   methods: {
-    async handleSetAvatar(url) {
-      this.isActive = url;
-
+    async setAvatarImage(id) {
       try {
-        const response = await axios.get(
+        const response = await axios.put(
           "profiles/" + localStorage.getItem("userID"),
+          { photo_id: id },
           {
             headers: {
               Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -39,13 +47,11 @@ export default {
           }
         );
         console.log(response);
+        localStorage.setItem("photo", response.data.data.photo.url);
       } catch (e) {
         console.log(e);
       }
     },
-  },
-  computed: {
-    ...mapGetters(["PhotoURL"]),
   },
 };
 </script>

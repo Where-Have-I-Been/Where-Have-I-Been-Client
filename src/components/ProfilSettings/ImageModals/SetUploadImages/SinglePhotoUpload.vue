@@ -19,19 +19,18 @@ export default {
   props: { UploadImage: null, url: null },
   methods: {
     async handleUpload() {
-      console.log("upload");
       // this.$store.dispatch("PhotoURL", this.url);
+      console.log("upload");
+      console.log(this.UploadImage);
 
       try {
-        const response = await axios.put(
-          "profiles/" + localStorage.getItem("userID"),
-          { image: this.UploadImage },
-          {
-            headers: {
-              Authorization: `Bearer ${localStorage.getItem("token")}`,
-            },
-          }
-        );
+        const fd = new FormData();
+        fd.append("image", this.UploadImage, this.UploadImage.name);
+        const response = await axios.post("photos", fd, {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        });
         this.$store.dispatch("PhotoURL", response.data.data);
         console.log(response);
       } catch (e) {

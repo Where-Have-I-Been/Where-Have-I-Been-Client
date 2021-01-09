@@ -26,7 +26,7 @@ export default {
   },
   methods: {
     fileHandler(e) {
-      this.UploadImage = e;
+      this.UploadImage = e.target.files[0];
       this.URLImage = URL.createObjectURL(e.target.files[0]);
     },
   },

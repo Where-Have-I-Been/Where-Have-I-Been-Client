@@ -11,9 +11,16 @@
       @click="showActive = !showActive"
     >
       <img
+        :src="photo"
+        alt=""
+        class="imgSettingCard rounded-circle"
+        v-if="photo"
+      />
+      <img
         src="../../assets/avatar2.jpg"
         alt=""
         class="imgSettingCard rounded-circle"
+        v-else
       />
     </a>
     <ul
@@ -90,6 +97,7 @@ export default {
       showActive: false,
       setImageModal: false,
       Username: localStorage.getItem("name"),
+      photo: localStorage.getItem("photo"),
     };
   },
   props: { active: String },

@@ -34,11 +34,17 @@
                 <i class="fas fa-envelope navbar-brand"
                   ><span class="badge badge-primary notifColor">12</span></i
                 >
-
+                <img
+                  :src="photo"
+                  class="rounded-circle navAvatar"
+                  alt="avatar"
+                  v-if="photo"
+                />
                 <img
                   src="../assets/avatar2.jpg"
                   class="rounded-circle navAvatar"
-                  alt=""
+                  alt="avatar"
+                  v-else
                 />
                 <span v-if="name">{{ name }}</span>
                 <span v-else>Profil</span>
@@ -74,6 +80,7 @@ export default {
       toggleCollapse: false,
       toggleMenu: false,
       name: localStorage.getItem("name"),
+      photo: localStorage.getItem("photo"),
     };
   },
   methods: {
