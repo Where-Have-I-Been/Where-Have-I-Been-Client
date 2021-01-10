@@ -1,5 +1,8 @@
 <template>
   <div class="container">
+    <div class="alert alert-success" role="alert" v-if="success">
+      <a href="#">{{ success.message }}</a>
+    </div>
     <div class="card-columns ColumnPhotoImage scroll">
       <div
         class="card cardPhotoImage"
@@ -11,10 +14,18 @@
           :src="images[i].url"
           class="card-img-top uploadImage pb-4"
           alt="selectPhoto"
+          @click="id = images[i].photo_id"
           :class="{ selected: isActive == i }"
-          @click="setAvatarImage(images[i].photo_id)"
         />
       </div>
+      <button
+        type="button"
+        class="btn btn-info"
+        @click="setAvatarImage()"
+        v-if="id"
+      >
+        Save
+      </button>
     </div>
   </div>
 </template>
@@ -28,6 +39,8 @@ export default {
   data() {
     return {
       isActive: null,
+      id: null,
+      success: "",
     };
   },
   props: { images: null },
@@ -35,11 +48,11 @@ export default {
     ...mapGetters(["PhotoURL"]),
   },
   methods: {
-    async setAvatarImage(id) {
+    async setAvatarImage() {
       try {
         const response = await axios.put(
           "profiles/" + localStorage.getItem("userID"),
-          { photo_id: id },
+          { photo_id: this.id },
           {
             headers: {
               Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -48,9 +61,14 @@ export default {
         );
         console.log(response);
         localStorage.setItem("photo", response.data.data.photo.url);
+        this.success = response.data;
+        location.reload();
       } catch (e) {
         console.log(e);
       }
+    },
+    setID(id) {
+      console.log(id);
     },
   },
 };

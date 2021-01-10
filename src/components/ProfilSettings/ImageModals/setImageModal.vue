@@ -16,19 +16,11 @@
         <div class="modal-footer">
           <button
             type="button"
-            class="btn btn-secondary"
+            class="btn btn-secondary mx-auto"
             data-bs-dismiss="modal"
             @click="active = false"
           >
             Close
-          </button>
-          <button
-            type="button"
-            class="btn btn-primary"
-            v-if="cardSetOrUpload"
-            @click="handleSaveChanges"
-          >
-            Save changes
           </button>
         </div>
       </div>
@@ -49,9 +41,6 @@ export default {
   methods: {
     getCardChange(data) {
       this.cardSetOrUpload = data;
-    },
-    handleSaveChanges() {
-      console.log("Data changes");
     },
   },
   change() {
