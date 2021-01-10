@@ -59,6 +59,8 @@ export default {
 <style>
 .cardPhotoImage {
   border: none;
+  width: 50%;
+  float: left;
 }
 
 .uploadImage {

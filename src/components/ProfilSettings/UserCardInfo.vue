@@ -59,6 +59,14 @@
       </li>
       <li
         class="list-group-item itemSetting"
+        :class="{ activeAction: active == 'resetPassword' }"
+      >
+        <router-link to="/userProfile/resetPassword"
+          >Reset Password</router-link
+        >
+      </li>
+      <li
+        class="list-group-item itemSetting"
         :class="{ activeAction: active == 'email' }"
       >
         <router-link to="/userProfile/email"

@@ -30,6 +30,14 @@ const routes = [{
     },
   },
   {
+    path: "/userProfile/resetPassword",
+    name: "Reset Password",
+    component: () => import("../views/ProfileSettingsView/resetPassword.vue"),
+    meta: {
+      requiresAuth: true,
+    },
+  },
+  {
     path: "/userProfile/email",
     name: "changeEmail",
     component: () => import("../views/ProfileSettingsView/ProfileEmail.vue"),

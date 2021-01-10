@@ -1,6 +1,6 @@
 <template>
   <div class="card mt-5">
-    <h5 class="card-header text-center">CHANGE PASSWORD</h5>
+    <h5 class="card-header text-center">RESET PASSWORD</h5>
     <div class="card-body">
       <p class="card-text mt-3 text-center">
         You will receive an email with a link to create a new password.
