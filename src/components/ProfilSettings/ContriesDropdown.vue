@@ -29,7 +29,7 @@ export default {
   props: { name: null, value: [] },
   methods: {
     emitCountry(data) {
-      this.$emit("country", data);
+      this.$emit("country", data+1);
     },
   },
   computed: {

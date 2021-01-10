@@ -9,6 +9,12 @@
     </div>
     <div class="card-body">
       <!-- start -->
+      <div class="alert alert-success" role="alert" v-if="success">
+        {{ success.message }}
+      </div>
+      <div class="alert alert-danger" role="alert" v-if="error">
+        {{ error.message }}
+      </div>
       <form @submit.prevent="handleSubmit">
         <input-text name="USERNAME" @username="getUsername"></input-text>
         <select-input
@@ -48,6 +54,8 @@ export default {
   data() {
     return {
       user: null,
+      success: "",
+      error: "",
       cardData: {
         name: "",
         gender: "",
@@ -87,8 +95,11 @@ export default {
           }
         );
         console.log(response);
+        this.success = response.data;
+        location.reload();
       } catch (e) {
         console.log(e);
+        this.error = e;
       }
     },
     getUsername(data) {

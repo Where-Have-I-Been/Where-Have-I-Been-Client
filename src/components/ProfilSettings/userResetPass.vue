@@ -9,6 +9,12 @@
     </div>
     <div class="card-body">
       <!-- start -->
+      <div class="alert alert-success" role="alert" v-if="success">
+        {{ success.message }}
+      </div>
+      <div class="alert alert-danger" role="alert" v-if="error">
+        {{ error.message }}
+      </div>
       <form @submit.prevent="handleSubmit">
         <change-pass name="Old Password" @pass="getOldPass"></change-pass>
         <change-pass name="New Password" @pass="getNewOldPass"></change-pass>
@@ -26,22 +32,58 @@
 
 <script>
 import changePass from "../ProfilSettings/ProfilChangePass.vue";
+import axios from "axios";
 
 export default {
   components: { changePass },
+  data() {
+    return {
+      oldPassword: "",
+      newPassword: "",
+      ConfirmNewPassword: "",
+      success: "",
+      error: "",
+    };
+  },
   methods: {
-    handleSubmit() {
-      console.log("asdas");
+    async handleSubmit() {
+      try {
+        const response = await axios.post(
+          "users/" + localStorage.getItem("userID") + "/change-password",
+          {
+            current_password: this.oldPassword,
+            password: this.newPassword,
+            password_confirmation: this.ConfirmNewPassword,
+          },
+          {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("token")}`,
+            },
+          }
+        );
+        console.log(response);
+        location.reload();
+        this.success = response.data;
+        this.password = "";
+        this.oldPassword = "";
+        this.ConfirmNewPassword = "";
+      } catch (e) {
+        console.log("Error " + e);
+        this.error = e;
+        this.password = "";
+        this.oldPassword = "";
+        this.ConfirmNewPassword = "";
+      }
     },
-    getOldPass(e){
-      console.log(e);
+    getOldPass(e) {
+      this.oldPassword = e;
     },
     getNewOldPass(e) {
-      console.log(e);
+      this.newPassword = e;
     },
     getConfirm(e) {
-      console.log(e);
-    }
+      this.ConfirmNewPassword = e;
+    },
   },
 };
 </script>

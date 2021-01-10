@@ -1,7 +1,7 @@
 <template>
   <div class="form-floating mt-3">
     <input
-      type="text"
+      type="password"
       class="form-control"
       id="floatingInput"
       v-model="data"
