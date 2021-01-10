@@ -110,7 +110,7 @@ export default {
   },
   props: { active: String },
   computed: {
-    ...mapGetters(["user"], ["profile"]),
+    ...mapGetters(["user", "profile"]),
   },
 };
 </script>

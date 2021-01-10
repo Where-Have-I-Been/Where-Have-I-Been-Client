@@ -4,16 +4,24 @@
       <div class="container">
         <div class="row">
           <img
+            :src="image"
+            alt="img"
+            class="ProfileImgAvatar rounded-circle"
+            v-if="image"
+          />
+          <img
             src="../../assets/avatar2.jpg"
             alt="img"
             class="ProfileImgAvatar rounded-circle"
+            v-else
           />
           <div class="col-sm">
-            <strong>Janek Kowalski</strong>
-            <p>
-              Poland
+            <strong v-if="name"> {{ name }} </strong>
+            <strong v-else>Janek Kowalski</strong>
+            <p v-if="user">
+              {{ user.nationality.code }}
               <img
-                src="https://upload.wikimedia.org/wikipedia/en/thumb/1/12/Flag_of_Poland.svg/1200px-Flag_of_Poland.svg.png"
+                :src="user.nationality.flag"
                 alt="flag"
                 class="ProfilFlagImg rounded-circle"
               />
@@ -41,12 +49,19 @@
 
 <script>
 export default {
-    name: 'UserCardData',
+  name: "UserCardData",
+  data() {
+    return {
+      image: localStorage.getItem("photo"),
+      name: localStorage.getItem("name"),
+    };
+  },
+  props: { user: null },
 };
 </script>
 
 <style>
-.ProfileImgAvatar{
+.ProfileImgAvatar {
   width: 140px;
   height: 100px;
   position: relative;
