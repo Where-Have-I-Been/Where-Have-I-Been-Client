@@ -72,7 +72,6 @@ export default {
         localStorage.setItem("token", response.data.token);
         localStorage.setItem("user", response.data);
         this.$store.dispatch("user", response.data);
-        this.$router.push("/");
         console.log(response);
 
         const user = await axios.get("users", {
@@ -80,8 +79,9 @@ export default {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
         });
-        console.log("user " + user.data.data);
         localStorage.setItem("userID", user.data.data.id);
+        localStorage.setItem("photo", user.data.data.avatar.url);
+        this.$router.push("/");
       } catch (e) {
         this.error = e.response.data.message;
       }

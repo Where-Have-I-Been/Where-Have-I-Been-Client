@@ -6,7 +6,7 @@
       <!-- end -->
       <div class="col-md-8 offset-md-2 info HomeLower">
         <h1 class="text-center">WHERE HAVE I BEEN</h1>
-        <h1 class="text-center" v-if="user">Hi {{ user.data.email }}</h1>
+        <h1 class="text-center" v-if="user">Hi {{ user.data.name }}</h1>
         <p class="text-center animate__animated animate__bounce pt-3">
           Lorem ipsum dolor sit amet, consectetur adipisicing
         </p>
@@ -60,18 +60,6 @@ export default {
       }
     );
     this.$store.dispatch("user", response.data);
-    // localStorage.setItem("userID", response.data.data.id);
-
-    // const getPrivateProfile = await axios.get(
-    //   "profiles/" + localStorage.getItem("userID") + "?representation=private",
-    //   {
-    //     headers: {
-    //       Authorization: `Bearer ${localStorage.getItem("token")}`,
-    //     },
-    //   }
-    // );
-    // console.log(getPrivateProfile.data.data);
-    // this.$store.dispatch("profile", getPrivateProfile.data.data);
   },
   computed: {
     ...mapGetters(["user"]),

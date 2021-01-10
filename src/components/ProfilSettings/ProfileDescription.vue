@@ -2,6 +2,9 @@
   <div class="card mt-5">
     <form @submit.prevent="handleSubmit">
       <div class="card-body">
+        <div class="alert alert-secondary" role="alert" v-if="success">
+          {{ success }}
+        </div>
         <h5 class="card-header text-center">PROFILE DESCRIPTION</h5>
         <div class="form-floating">
           <textarea
@@ -34,6 +37,7 @@ export default {
   data() {
     return {
       description: "",
+      success: "",
     };
   },
   methods: {
@@ -49,6 +53,8 @@ export default {
           }
         );
         console.log(response);
+        this.success = response.data.message;
+        location.reload();
       } catch (e) {
         console.log(e);
       }
