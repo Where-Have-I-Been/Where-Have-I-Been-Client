@@ -105,7 +105,7 @@ export default {
       showActive: false,
       setImageModal: false,
       user: null,
-      Username: localStorage.getItem("name"),
+      Username: null,
       photo: null,
     };
   },
@@ -122,8 +122,10 @@ export default {
           },
         }
       );
-      if (response.data.data.photo != null)
+      if (response.data.data.photo != null){
         this.photo = response.data.data.photo.url;
+        this.Username = response.data.data.name;
+      }
       this.user = response.data.data;
     },
   },
