@@ -11,10 +11,10 @@
       @click="showActive = !showActive"
     >
       <img
+        v-if="photo"
         :src="photo"
         alt=""
         class="imgSettingCard rounded-circle"
-        v-if="photo"
       />
       <img
         src="../../assets/avatar2.jpg"
@@ -95,7 +95,7 @@
 
 <script>
 import setImageModal from "./ImageModals/setImageModal.vue";
-import { mapGetters } from "vuex";
+import axios from "axios";
 
 export default {
   components: { setImageModal },
@@ -104,13 +104,31 @@ export default {
     return {
       showActive: false,
       setImageModal: false,
+      user: null,
       Username: localStorage.getItem("name"),
-      photo: localStorage.getItem("photo"),
+      photo: null,
     };
   },
   props: { active: String },
-  computed: {
-    ...mapGetters(["user", "profile"]),
+  methods: {
+    async getUser() {
+      const response = await axios.get(
+        "profiles/" +
+          localStorage.getItem("userID") +
+          "?representation=private",
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      );
+      if (response.data.data.photo != null)
+        this.photo = response.data.data.photo.url;
+      this.user = response.data.data;
+    },
+  },
+  mounted() {
+    this.getUser();
   },
 };
 </script>

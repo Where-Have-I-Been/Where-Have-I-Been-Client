@@ -82,6 +82,7 @@ export default {
         this.$router.push("/");
         localStorage.setItem("userID", user.data.data.id);
         localStorage.setItem("photo", user.data.data.avatar.url);
+        localStorage.setItem("name", user.data.data.name)
       } catch (e) {
         this.error = e.response.data.message;
       }

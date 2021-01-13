@@ -15,10 +15,7 @@
             v-model="description"
             required
           ></textarea>
-          <label for="floatingTextarea2" v-if="user">{{
-            user.date.description
-          }}</label>
-          <label for="floatingTextarea2" v-else>Description</label>
+          <label for="floatingTextarea2">Description</label>
         </div>
       </div>
       <div class="d-flex justify-content-center pb-3">

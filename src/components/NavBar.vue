@@ -35,10 +35,10 @@
                   ><span class="badge badge-primary notifColor">12</span></i
                 >
                 <img
+                  v-if="photo"
                   :src="photo"
                   class="rounded-circle navAvatar"
                   alt="avatar"
-                  v-if="photo"
                 />
                 <img
                   src="../assets/avatar2.jpg"
@@ -46,7 +46,7 @@
                   alt="avatar"
                   v-else
                 />
-                <span v-if="name">{{ name }}</span>
+                <span v-if="user">{{ user.name }}</span>
                 <span v-else>Profil</span>
               </a>
               <!-- show na dole -->
@@ -71,7 +71,7 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
+import axios from "axios";
 
 export default {
   name: "NavBar",
@@ -79,8 +79,9 @@ export default {
     return {
       toggleCollapse: false,
       toggleMenu: false,
+      user: null,
       name: localStorage.getItem("name"),
-      photo: localStorage.getItem("photo"),
+      photo: null,
     };
   },
   methods: {
@@ -94,10 +95,25 @@ export default {
       localStorage.removeItem("token");
       this.$router.push("/");
     },
+    async getUser() {
+      const response = await axios.get(
+        "profiles/" +
+          localStorage.getItem("userID") +
+          "?representation=private",
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      );
+      if (response.data.data.photo != null)
+        this.photo = response.data.data.photo.url;
+      this.user = response.data.data;
+    },
   },
-  computed: {
-    ...mapGetters(["user"]),
-  },
+  mounted(){
+    this.getUser();
+  }
 };
 </script>
 
