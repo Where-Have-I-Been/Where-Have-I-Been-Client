@@ -7,7 +7,9 @@
       v-model="Username"
       @change="emitUserName(Username)"
     />
-    <label for="floatingInput" v-if="user">Username: {{ user.data.name }}</label>
+    <label for="floatingInput" v-if="user"
+      >Username: {{ user.data.name }}</label
+    >
     <label for="floatingInput" v-else>{{ name }}</label>
   </div>
 </template>
