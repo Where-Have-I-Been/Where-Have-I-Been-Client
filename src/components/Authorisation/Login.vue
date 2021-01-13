@@ -79,9 +79,9 @@ export default {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
         });
+        this.$router.push("/");
         localStorage.setItem("userID", user.data.data.id);
         localStorage.setItem("photo", user.data.data.avatar.url);
-        this.$router.push("/");
       } catch (e) {
         this.error = e.response.data.message;
       }
