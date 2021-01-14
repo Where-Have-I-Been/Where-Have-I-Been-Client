@@ -98,7 +98,7 @@ export default {
     async getUser() {
       const response = await axios.get(
         "profiles/" +
-          localStorage.getItem("userID") +
+          localStorage.getItem("profilID") +
           "?representation=private",
         {
           headers: {

@@ -13,7 +13,7 @@
         {{ success.message }}
       </div>
       <div class="alert alert-danger" role="alert" v-if="error">
-        {{ error.message }}
+        {{ error }}
       </div>
       <form @submit.prevent="handleSubmit">
         <input-text name="USERNAME" @username="getUsername"></input-text>
@@ -47,7 +47,6 @@ import inputText from "./inputText.vue";
 import SelectInput from "./SelectInput.vue";
 import inputDate from "./inputDate.vue";
 import ContriesDropdown from "./ContriesDropdown.vue";
-import { mapGetters } from "vuex";
 
 export default {
   name: "Profil Settings Card",
@@ -61,7 +60,6 @@ export default {
         gender: "",
         country_id: null,
         birth_date: null,
-        image: null,
       },
       countries: [],
     };
@@ -70,23 +68,12 @@ export default {
   async created() {
     const response = await axios.get("countries");
     this.countries = response.data.data;
-
-    const res = await axios.get(
-      "profiles/" + localStorage.getItem("userID") + "?representation=private",
-      {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-      }
-    );
-    this.$store.dispatch("user", res.data);
-    localStorage.setItem("name", res.data.data.name)
   },
   methods: {
     async handleSubmit() {
       try {
         const response = await axios.put(
-          "profiles/" + localStorage.getItem("userID"),
+          "profiles/" + localStorage.getItem("profilID"),
           this.cardData,
           {
             headers: {
@@ -99,7 +86,7 @@ export default {
         location.reload();
       } catch (e) {
         console.log(e);
-        this.error = e;
+        this.error = e.message;
       }
     },
     getUsername(data) {
@@ -118,12 +105,8 @@ export default {
       this.cardData.image = event.target.files[0];
       console.log(URL.createObjectURL(event.target.files[0]));
     },
-    computed: {
-      ...mapGetters(["user"]),
-    },
     mounted() {
       this.handleUser();
-      this.$store.dispatch("user", this.user);
     },
   },
 };

@@ -6,7 +6,7 @@
       <!-- end -->
       <div class="col-md-8 offset-md-2 info HomeLower">
         <h1 class="text-center">WHERE HAVE I BEEN</h1>
-        <h1 class="text-center" v-if="user">Hi {{ user.data.name }}</h1>
+        <h1 class="text-center" v-if="name">Hi {{ name }}</h1>
         <p class="text-center animate__animated animate__bounce pt-3">
           Lorem ipsum dolor sit amet, consectetur adipisicing
         </p>
@@ -40,29 +40,29 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
 import axios from "axios";
 import HomeNavbar from "../components/Home/HomeNavbar.vue";
 
 export default {
   name: "Home",
   data() {
-    return {};
+    return {
+      name: null,
+      user: null,
+    };
   },
   components: { HomeNavbar },
   async created() {
-    const response = await axios.get(
-      "profiles/" + localStorage.getItem("userID") + "?representation=private",
-      {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-      }
-    );
-    this.$store.dispatch("user", response.data);
-  },
-  computed: {
-    ...mapGetters(["user"]),
+    const response = await axios.get("users", {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+    });
+    // this.$store.dispatch("user", response.data);
+    localStorage.setItem("userID", response.data.data.id);
+    localStorage.setItem("profilID", response.data.data.profile_id);
+    this.user = response;
+    this.name = response.data.data.name;
   },
 };
 </script>

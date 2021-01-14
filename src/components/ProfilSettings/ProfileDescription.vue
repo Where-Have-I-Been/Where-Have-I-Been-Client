@@ -41,7 +41,7 @@ export default {
     async handleSubmit() {
       try {
         const response = await axios.put(
-          "profiles/" + localStorage.getItem("userID"),
+          "profiles/" + localStorage.getItem("profilID"),
           { description: this.description },
           {
             headers: {

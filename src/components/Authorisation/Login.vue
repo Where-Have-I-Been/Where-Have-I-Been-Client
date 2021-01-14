@@ -71,18 +71,7 @@ export default {
 
         localStorage.setItem("token", response.data.token);
         localStorage.setItem("user", response.data);
-        this.$store.dispatch("user", response.data);
-        console.log(response);
-
-        const user = await axios.get("users", {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-        });
         this.$router.push("/");
-        localStorage.setItem("userID", user.data.data.id);
-        localStorage.setItem("photo", user.data.data.avatar.url);
-        localStorage.setItem("name", user.data.data.name)
       } catch (e) {
         this.error = e.response.data.message;
       }

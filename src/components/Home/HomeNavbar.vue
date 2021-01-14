@@ -27,19 +27,32 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
+import axios from "axios";
 
 export default {
   name: "HomeNavBar",
+  data(){
+    return {
+      user: null,
+    }
+  },
   methods: {
     handleClick() {
       localStorage.removeItem("token");
       this.$router.push("/");
     },
+    async getUser() {
+      const response = await axios.get("users", {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      });
+      this.user = response.data.data;
+    },
   },
-  computed: {
-    ...mapGetters(["user"]),
-  },
+  mounted(){
+    this.getUser();
+  }
 };
 </script>
 

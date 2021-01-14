@@ -51,7 +51,7 @@ export default {
     async setAvatarImage() {
       try {
         const response = await axios.put(
-          "profiles/" + localStorage.getItem("userID"),
+          "profiles/" + localStorage.getItem("profilID"),
           { photo_id: this.id },
           {
             headers: {
