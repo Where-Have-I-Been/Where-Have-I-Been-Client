@@ -51,9 +51,9 @@
             <!-- card  -->
             <div class="card w-50 mx-auto">
               <div class="card-body">
-                <ul class="list-group" v-if="FiltrByValue=='Followed Users'">
+                <ul class="list-group" v-if="FiltrByValue == 'Country/City'">
                   <div>
-                    <country-checkbox name="Algieria"></country-checkbox>
+                    <country-checkbox :countries="countries"></country-checkbox>
                   </div>
                 </ul>
               </div>
@@ -82,7 +82,7 @@
 <script>
 import countryCheckbox from "./countryCheckbox.vue";
 import SelectMoreFilter from "./Users/SelectMoreFilter.vue";
-
+import axios from "axios";
 export default {
   name: "ddf",
   components: { countryCheckbox, SelectMoreFilter },
@@ -90,6 +90,7 @@ export default {
     return {
       isActive: false,
       FiltrByValue: "",
+      countries: null,
     };
   },
   methods: {
@@ -99,7 +100,14 @@ export default {
     ValueOfFilter(value) {
       this.FiltrByValue = value;
     },
+    async getCountries(){
+      const countries = await axios.get("countries");
+      this.countries = countries.data;
+    }
   },
+  mounted(){
+    this.getCountries();
+  }
 };
 </script>
 

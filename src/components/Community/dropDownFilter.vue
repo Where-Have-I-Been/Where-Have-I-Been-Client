@@ -1,7 +1,11 @@
 <template>
   <div class="input-group mb-3">
-    <select class="form-select" id="inputGroupSelect02">
-      <option>Sort by</option>
+    <select
+      class="form-select"
+      id="inputGroupSelect02"
+      v-model="selectedFilter"
+    >
+      <option disabled>Sort by</option>
       <option value="Country">Country</option>
       <option value="City">City</option>
       <option value="Likes">Likes</option>
@@ -13,6 +17,11 @@
 <script>
 export default {
   name: "DropDownFilter",
+  data() {
+    return {
+      selectedFilter: "",
+    };
+  },
 };
 </script>
 

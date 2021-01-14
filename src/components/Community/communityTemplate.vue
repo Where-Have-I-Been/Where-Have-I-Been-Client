@@ -35,7 +35,7 @@
       <!-- asd -->
     </div>
     <div class="cardTrip px-4">
-      <card-trip></card-trip>
+      <card-trip :trips="trips"></card-trip>
     </div>
   </div>
 </template>
@@ -44,10 +44,32 @@
 import dropDownFilter from "./dropDownFilter.vue";
 import dropDownSort from "./dropDownSort.vue";
 import cardTrip from "./cardTrip.vue";
+import axios from "axios";
 
 export default {
   name: "Cmtp",
+  data() {
+    return {
+      trips: null,
+    };
+  },
   components: { cardTrip, dropDownFilter, dropDownSort },
+  methods: {
+    async getTrips() {
+      const trips = await axios.get(
+        "trips/user/" + localStorage.getItem("userID"),
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      );
+      this.trips = trips.data.data;
+    },
+  },
+  mounted(){
+    this.getTrips();
+  }
 };
 </script>
 

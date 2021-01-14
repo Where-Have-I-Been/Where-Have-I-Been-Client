@@ -18,23 +18,48 @@
       </ul>
     </div>
     <div class="card-body">
-      <div class="input-group w-75 mx-auto">
-        <span class="input-group-text">Search User</span>
-        <input
-          type="text"
-          aria-label="First name"
-          class="form-control"
-          v-model="search"
-        />
+      <div class="input-group">
+        <div class="row w-100">
+          <div class="col">
+            <form class="form-floating">
+              <input
+                type="email"
+                class="form-control"
+                id="floatingInputValue"
+              />
+              <label for="floatingInputValue">Search User</label>
+            </form>
+          </div>
+          <div class="col">
+            <div class="form-floating">
+              <select
+                class="form-select"
+                id="floatingSelect"
+                aria-label="Floating label select example"
+                v-model="filterSelected"
+              >
+                <option value="All">All</option>
+                <option value="Followed">Followed</option>
+                <option value="Friend">Friend</option>
+              </select>
+              <label for="floatingSelect">Sort By</label>
+            </div>
+          </div>
+        </div>
       </div>
-      <div class="d-flex justify-content-evenly flex-wrap mt-4">
-        <user-card
-          :items="itemsPagination"
-          :page="page"
-          :search="search"
-          :filterJson="filterJson"
-        ></user-card>
+      <div
+        class="d-flex justify-content-evenly flex-wrap mt-4"
+        v-if="filterSelected == 'Followed'"
+      >
+        <user-card :FollowedUsers="FollowedUsers"></user-card>
       </div>
+      <div
+        class="d-flex justify-content-evenly flex-wrap mt-4"
+        v-if="filterSelected == 'Friend'"
+      >
+        <user-card :FollowedUsers="FollowedUsers"></user-card>
+      </div>
+      <div v-else-if="filterSelected == 'All'">asdsada</div>
     </div>
     <nav aria-label="Page navigation example">
       <ul class="pagination justify-content-center">
@@ -67,44 +92,33 @@
 
 <script>
 import UserCard from "./UserCard.vue";
+import axios from "axios";
 
 export default {
-  name: "Cmtp",
+  name: "Community User Template",
   data() {
     return {
-      items: [
-        [
-          { name: "Jan Nowak" },
-          { name: "Alexis Newton" },
-          { name: "Armani Benitez" },
-          { name: "Tabitha Trejo" },
-        ],
-        [
-          { name: "Cleo Greene" },
-          { name: "Kamal Holden" },
-          { name: "Steve Riggs" },
-          { name: "Acacia Garner" },
-        ],
-        [{ name: "Roshan Perry" }, { name: "Adam Kowalski" }],
-      ],
-      page: 1,
-      maxPage: 0,
-      search: "",
-      coutnEl: 0,
+      FollowedUsers: null,
+      filterSelected: null,
     };
   },
-  components: { UserCard },
-  mounted() {
-    this.coutnEl = Math.floor(this.items.length / 4);
-    this.page = 0;
-  },
-  computed: {
-    filterJson() {
-      return this.items[this.page].filter((js) => {
-        return js.name.match(this.search);
-      });
+  methods: {
+    async getFollowedUsers() {
+      const fu = await axios.get(
+        "following/user/" + localStorage.getItem("userID"),
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      );
+      this.FollowedUsers = fu.data.data;
     },
   },
+  mounted() {
+    this.getFollowedUsers();
+  },
+  components: { UserCard },
 };
 </script>
 
