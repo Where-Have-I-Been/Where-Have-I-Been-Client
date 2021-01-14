@@ -16,17 +16,23 @@
         {{ error }}
       </div>
       <form @submit.prevent="handleSubmit">
-        <input-text name="USERNAME" @username="getUsername"></input-text>
+        <input-text
+          name="USERNAME"
+          :user="user"
+          @username="getUsername"
+        ></input-text>
         <select-input
           name="GENDER"
           :value="['Male', 'Female']"
           @gender="getGender"
+          :user="user"
         ></select-input>
-        <input-date name="BRITH DATE" @date="getDate"></input-date>
+        <input-date name="BRITH DATE" @date="getDate" :user="user"></input-date>
         <contries-dropdown
           name="CONTRIES"
           :value="countries"
           @country="getCountry"
+          :user="user"
         ></contries-dropdown>
         <button
           type="submit"
@@ -68,6 +74,18 @@ export default {
   async created() {
     const response = await axios.get("countries");
     this.countries = response.data.data;
+
+    const user = await axios.get(
+      "profiles/" +
+        localStorage.getItem("profilID") +
+        "?representation=private",
+      {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      }
+    );
+    this.user = user.data.data;
   },
   methods: {
     async handleSubmit() {

@@ -15,7 +15,6 @@
 </template>
 
 <script>
-
 export default {
   name: "Select gender",
   data() {
@@ -23,7 +22,7 @@ export default {
       gender: "",
     };
   },
-  props: { name: String, value: Array },
+  props: { name: String, value: Array, user: null },
   methods: {
     emitGender(data) {
       this.$emit("gender", data);

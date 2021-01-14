@@ -61,6 +61,7 @@ export default {
     // this.$store.dispatch("user", response.data);
     localStorage.setItem("userID", response.data.data.id);
     localStorage.setItem("profilID", response.data.data.profile_id);
+    localStorage.setItem("name", response.data.data.name);
     this.user = response;
     this.name = response.data.data.name;
   },

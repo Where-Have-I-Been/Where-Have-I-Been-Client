@@ -7,27 +7,26 @@
       v-model="date"
       @change="emitDate(date)"
     />
-    <label for="DateID" v-if="user">Date od birth: {{ user.data.birth_date }}</label>
+    <label for="DateID" v-if="date">Date od birth: {{ date }}</label>
     <label for="DateID" v-else>{{ name }}</label>
   </div>
 </template>
 
 <script>
-import { mapGetters } from "vuex";
 export default {
   data() {
     return {
       date: null,
     };
   },
-  props: { name: String },
+  props: { name: String, user: null },
   methods: {
     emitDate(data) {
       this.$emit("date", data);
     },
-  },
-  computed: {
-    ...mapGetters(["user"]),
+    setDate() {
+      this.date = this.user.birth_date;
+    },
   },
 };
 </script>

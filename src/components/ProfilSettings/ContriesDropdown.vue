@@ -11,14 +11,11 @@
         {{ v.name }}
       </option>
     </select>
-    <label for="floatingInput" v-if="user">Countries: {{ user.data.nationality.name }}</label>
-    <label for="floatingInput" v-else>{{ name }}</label>
+    <label for="floatingInput">{{ name }}</label>
   </div>
 </template>
 
 <script>
-import { mapGetters } from "vuex";
-
 export default {
   name: "Countries DropDown",
   data() {
@@ -26,14 +23,11 @@ export default {
       country: "",
     };
   },
-  props: { name: null, value: [] },
+  props: { name: null, value: [], user: null },
   methods: {
     emitCountry(data) {
-      this.$emit("country", data+1);
+      this.$emit("country", data + 1);
     },
-  },
-  computed: {
-    ...mapGetters(["user"]),
   },
 };
 </script>

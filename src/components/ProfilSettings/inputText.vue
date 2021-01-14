@@ -7,16 +7,11 @@
       v-model="Username"
       @change="emitUserName(Username)"
     />
-    <label for="floatingInput" v-if="user"
-      >Username: {{ user.data.name }}</label
-    >
-    <label for="floatingInput" v-else>{{ name }}</label>
+    <label for="floatingInput">{{ name }}</label>
   </div>
 </template>
 
 <script>
-import { mapGetters } from "vuex";
-
 export default {
   name: "UserName input",
   data() {
@@ -24,14 +19,11 @@ export default {
       Username: "",
     };
   },
-  props: { name: String },
+  props: { name: String, user: null },
   methods: {
     emitUserName(data) {
       this.$emit("username", data);
     },
-  },
-  computed: {
-    ...mapGetters(["user"]),
   },
 };
 </script>
