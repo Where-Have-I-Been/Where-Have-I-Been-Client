@@ -4,16 +4,16 @@
       <div class="container">
         <div class="row">
           <img
-            v-if="user"
-            alt="img"
-            class="ProfileImgAvatar rounded-circle"
-            :src="user.photo.url"
-          />
-          <img
-            v-else-if="publicProfile.image"
+            v-if="publicProfile.image"
             alt="img"
             class="ProfileImgAvatar rounded-circle"
             :src="publicProfile.image"
+          />
+          <img
+            v-else-if="user"
+            alt="img"
+            class="ProfileImgAvatar rounded-circle"
+            :src="user.photo.url"
           />
           <img
             src="../../assets/avatar2.jpg"
@@ -25,18 +25,18 @@
             <strong v-if="publicProfile.name"> {{ publicProfile.name }}</strong>
             <strong v-else-if="user"> {{ user.name }} </strong>
             <strong v-else>New User</strong>
-            <p v-if="user">
-              {{ user.nationality.code }}
+            <p v-if="publicProfile.code">
+              {{ publicProfile.code }}
               <img
-                :src="user.nationality.flag"
+                :src="publicProfile.flag"
                 alt="flag"
                 class="ProfilFlagImg rounded-circle"
               />
             </p>
-            <p v-else-if="publicProfile.code">
-              {{ publicProfile.code }}
+            <p v-else-if="user">
+              {{ user.nationality.code }}
               <img
-                :src="publicProfile.flag"
+                :src="user.nationality.flag"
                 alt="flag"
                 class="ProfilFlagImg rounded-circle"
               />
@@ -146,7 +146,9 @@ export default {
               Authorization: `Bearer ${localStorage.getItem("token")}`,
             },
           });
-          console.log(pu);
+
+          if (this.id === localStorage.getItem("userID"))
+            this.$router.push("/profil");
 
           this.publicProfile.name = pu.data.data.name;
           this.publicProfile.description = pu.data.data.description;

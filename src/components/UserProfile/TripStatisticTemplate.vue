@@ -7,7 +7,6 @@
         <div class="tripScroll">
           <!-- Wycieczka -->
           <trip-template></trip-template>
-          <trip-template></trip-template>
           <!-- Koniec wycieczki -->
         </div>
       </div>

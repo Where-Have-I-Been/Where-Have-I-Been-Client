@@ -2,11 +2,11 @@
   <div class="card mx-5 mt-3">
     <div class="card-body">
       <h5 class="card-title">About me</h5>
-      <p class="card-text px-3 pt-4 pb-4" v-if="user">
-        {{ user.description }}
-      </p>
       <p class="card-text px-3 pt-4 pb-4" v-if="aboutDiffUser">
         {{ aboutDiffUser }}
+      </p>
+      <p class="card-text px-3 pt-4 pb-4" v-else-if="user">
+        {{ user.description }}
       </p>
     </div>
   </div>
