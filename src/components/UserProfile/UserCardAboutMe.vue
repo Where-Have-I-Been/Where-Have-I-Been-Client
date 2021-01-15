@@ -5,14 +5,37 @@
       <p class="card-text px-3 pt-4 pb-4" v-if="user">
         {{ user.description }}
       </p>
+      <p class="card-text px-3 pt-4 pb-4" v-if="aboutDiffUser">
+        {{ aboutDiffUser }}
+      </p>
     </div>
   </div>
 </template>
 
 <script>
+import axios from "axios";
 export default {
   name: "UserCardAboutMe",
+  data() {
+    return {
+      aboutDiffUser: null,
+      id: this.$route.params.id,
+    };
+  },
   props: { user: null },
+  methods: {
+    async getDiffUser() {
+      const pu = await axios.get("profiles/" + this.id, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      });
+      this.aboutDiffUser = pu.data.data.description;
+    },
+  },
+  mounted() {
+    this.getDiffUser();
+  },
 };
 </script>
 

@@ -4,10 +4,16 @@
       <div class="container">
         <div class="row">
           <img
-            :src="image"
+            v-if="user"
             alt="img"
             class="ProfileImgAvatar rounded-circle"
-            v-if="image"
+            :src="user.photo.url"
+          />
+          <img
+            v-else-if="publicProfile.image"
+            alt="img"
+            class="ProfileImgAvatar rounded-circle"
+            :src="publicProfile.image"
           />
           <img
             src="../../assets/avatar2.jpg"
@@ -16,13 +22,21 @@
             v-else
           />
           <div class="col-sm">
-            <strong v-if="id"> {{ publicProfile.name }} z id {{ id }}</strong>
-            <strong v-else-if="name"> {{ name }} </strong>
-            <strong v-else>Janek Kowalski</strong>
+            <strong v-if="publicProfile.name"> {{ publicProfile.name }}</strong>
+            <strong v-else-if="user"> {{ user.name }} </strong>
+            <strong v-else>New User</strong>
             <p v-if="user">
               {{ user.nationality.code }}
               <img
                 :src="user.nationality.flag"
+                alt="flag"
+                class="ProfilFlagImg rounded-circle"
+              />
+            </p>
+            <p v-else-if="publicProfile.code">
+              {{ publicProfile.code }}
+              <img
+                :src="publicProfile.flag"
                 alt="flag"
                 class="ProfilFlagImg rounded-circle"
               />
@@ -67,14 +81,15 @@ export default {
   name: "UserCardData",
   data() {
     return {
-      image: localStorage.getItem("photo"),
-      name: localStorage.getItem("name"),
+      image: null,
+      name: null,
+      nationality: null,
       id: this.$route.params.id,
       followed: false,
       publicProfile: {
         name: "",
         image: "",
-        country: "",
+        code: "",
         flag: "",
         description: "",
       },
@@ -95,9 +110,7 @@ export default {
         if (el.id == this.$route.params.id) {
           this.followed = true;
           console.log(el);
-          this.publicProfile.name = el.email;
         }
-        // else this.followed = false;
       });
     },
     async handleFollowButton(id) {
@@ -125,14 +138,35 @@ export default {
       this.sucess = unfollow.data.data;
       location.reload();
     },
+    async getPublicUser() {
+      if (this.id) {
+        try {
+          const pu = await axios.get("profiles/" + this.id, {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("token")}`,
+            },
+          });
+          console.log(pu);
+
+          this.publicProfile.name = pu.data.data.name;
+          this.publicProfile.description = pu.data.data.description;
+          if (pu.data.data.photo)
+            this.publicProfile.image = pu.data.data.photo.url;
+          if (pu.data.data.nationality) {
+            this.publicProfile.flag = pu.data.data.nationality.flag;
+            this.publicProfile.code = pu.data.data.nationality.code;
+          }
+        } catch (err) {
+          if (err.response.status) this.$router.push("/profil");
+        }
+      }
+    },
   },
   props: { user: null },
-  mounted() {
-    // this.checkIfFollowed();
-  },
-  beforeMount(){
+  beforeMount() {
     this.checkIfFollowed();
-  }
+    this.getPublicUser();
+  },
 };
 </script>
 
