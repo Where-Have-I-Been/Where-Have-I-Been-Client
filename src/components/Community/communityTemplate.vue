@@ -77,4 +77,5 @@ export default {
 .search {
   display: inline-block;
 }
+
 </style>

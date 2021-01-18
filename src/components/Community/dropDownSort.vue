@@ -50,14 +50,14 @@
 
             <!-- card  -->
             <div class="card w-50 mx-auto">
-              <div class="card-body">
+              <div class="card-body card-scrollable">
                 <ul class="list-group" v-if="FiltrByValue == 'Country/City'">
                   <div>
                     <country-checkbox :countries="countries"></country-checkbox>
                   </div>
                 </ul>
               </div>
-              <button class="btn btn-primary" type="button">Apply</button>
+              <button class="btn btn-primary mt-2" type="button">Apply</button>
             </div>
           </div>
           <!-- card end -->
@@ -100,14 +100,14 @@ export default {
     ValueOfFilter(value) {
       this.FiltrByValue = value;
     },
-    async getCountries(){
+    async getCountries() {
       const countries = await axios.get("countries");
       this.countries = countries.data;
-    }
+    },
   },
-  mounted(){
+  mounted() {
     this.getCountries();
-  }
+  },
 };
 </script>
 
@@ -115,5 +115,10 @@ export default {
 .showM {
   display: block;
   padding-right: 17px;
+}
+
+.card-scrollable {
+  overflow-y: scroll;
+  max-height: 30vh;
 }
 </style>

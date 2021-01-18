@@ -23,7 +23,11 @@
         <a class="btn btn-primary" @click="$router.push('/profil/' + item.id)"
           >See Profile</a
         >
-        <a href="#" class="btn btn-secondary" @click="handleFollow(item.id)"
+        <a
+          href="#"
+          class="btn btn-secondary"
+          @click="handleFollow(item.id)"
+          v-if="show == 'follow'"
           >Unfollow</a
         >
       </div>
@@ -41,7 +45,7 @@ export default {
       sucess: "",
     };
   },
-  props: { FollowedUsers: null },
+  props: { FollowedUsers: null, show: null },
   methods: {
     async handleFollow(id) {
       const unfollow = await axios.delete("follows/user/" + id, {

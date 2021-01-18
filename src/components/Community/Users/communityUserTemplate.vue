@@ -38,9 +38,8 @@
                 aria-label="Floating label select example"
                 v-model="filterSelected"
               >
-                <option value="All">All</option>
-                <option value="Followed">Followed</option>
-                <option value="Friend">Friend</option>
+                <option value="Followed" selected>Followed</option>
+                <option value="Following">Follow You</option>
               </select>
               <label for="floatingSelect">Sort By</label>
             </div>
@@ -49,17 +48,16 @@
       </div>
       <div
         class="d-flex justify-content-evenly flex-wrap mt-4"
-        v-if="filterSelected == 'Followed'"
+        v-if="filterSelected == 'Followed' || filterSelected == ''"
       >
-        <user-card :FollowedUsers="FollowedUsers"></user-card>
+        <user-card :FollowedUsers="FollowedUsers" show="follow"></user-card>
       </div>
       <div
         class="d-flex justify-content-evenly flex-wrap mt-4"
-        v-if="filterSelected == 'Friend'"
+        v-if="filterSelected == 'Following'"
       >
-        <user-card :FollowedUsers="FollowedUsers"></user-card>
+        <user-card :FollowedUsers="FollowersUsers"></user-card>
       </div>
-      <div v-else-if="filterSelected == 'All'">asdsada</div>
     </div>
     <nav aria-label="Page navigation example">
       <ul class="pagination justify-content-center">
@@ -99,7 +97,8 @@ export default {
   data() {
     return {
       FollowedUsers: null,
-      filterSelected: null,
+      FollowersUsers: null,
+      filterSelected: "Followed",
     };
   },
   methods: {
@@ -114,9 +113,21 @@ export default {
       );
       this.FollowedUsers = fu.data.data;
     },
+    async getFollowersUsers() {
+      const fu = await axios.get(
+        "followers/user/" + localStorage.getItem("userID"),
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      );
+      this.FollowersUsers = fu.data.data;
+    },
   },
   mounted() {
     this.getFollowedUsers();
+    this.getFollowersUsers();
   },
   components: { UserCard },
 };
