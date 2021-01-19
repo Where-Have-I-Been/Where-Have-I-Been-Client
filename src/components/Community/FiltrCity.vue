@@ -1,12 +1,7 @@
 <template>
-  <div class="pb-2">
+  <div class="form-group">
     <label for="filtrCity">Filtr by City</label>
-    <input
-      type="text"
-      id="filtrCity"
-      v-model="city"
-      @keyup.enter="cityEmit($event.target.value)"
-    />
+    <input type="text" class="form-control" id="filtrCity" v-model="city" />
   </div>
 </template>
 

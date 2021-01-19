@@ -21,12 +21,8 @@
       <div class="input-group">
         <div class="row w-100">
           <div class="col">
-            <form class="form-floating">
-              <input
-                type="email"
-                class="form-control"
-                id="floatingInputValue"
-              />
+            <form class="form-floating" @submit.prevent="searchUser">
+              <input type="text" class="form-control" id="floatingInputValue" />
               <label for="floatingInputValue">Search User</label>
             </form>
           </div>
@@ -124,6 +120,9 @@ export default {
       );
       this.FollowersUsers = fu.data.data;
     },
+    searchUser(){
+      console.log("user");
+    }
   },
   mounted() {
     this.getFollowedUsers();

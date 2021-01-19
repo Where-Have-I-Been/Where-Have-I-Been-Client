@@ -5,23 +5,23 @@
       class="form-check-input"
       type="radio"
       name="flexRadioDefault"
-      id="flexRadioDefault1"
+      id="selectYesFollow"
       value="true"
       v-model="followsFilter"
     />
-    <label class="form-check-label" for="flexRadioDefault1"> Yes </label>
+    <label class="form-check-label" for="selectYesFollow"> Yes </label>
   </div>
   <div class="form-check">
     <input
       class="form-check-input"
       type="radio"
       name="flexRadioDefault"
-      id="flexRadioDefault2"
+      id="selectNoFollow"
       v-model="followsFilter"
       value="false"
       checked
     />
-    <label class="form-check-label" for="flexRadioDefault2"> No </label>
+    <label class="form-check-label" for="selectNoFollow"> No </label>
   </div>
 </template>
 

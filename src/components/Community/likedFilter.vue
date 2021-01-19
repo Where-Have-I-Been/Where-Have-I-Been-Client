@@ -4,24 +4,24 @@
     <input
       class="form-check-input"
       type="radio"
-      name="flexRadioDefault"
-      id="flexRadioDefault1"
+      name="SelectYesLike"
+      id="selectYesLike"
       value="true"
       v-model="likedFilter"
     />
-    <label class="form-check-label" for="flexRadioDefault1"> Yes </label>
+    <label class="form-check-label" for="selectYesLike"> Yes </label>
   </div>
   <div class="form-check">
     <input
       class="form-check-input"
       type="radio"
-      name="flexRadioDefault"
-      id="flexRadioDefault2"
+      name="SelectNoLike"
+      id="selectNoLike"
       v-model="likedFilter"
       value="false"
       checked
     />
-    <label class="form-check-label" for="flexRadioDefault2"> No </label>
+    <label class="form-check-label" for="selectNoLike"> No </label>
   </div>
 </template>
 

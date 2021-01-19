@@ -1,6 +1,6 @@
 <template>
   <div class="card mb-3" v-for="(trip, i) in trips" :key="i">
-    <div class="row g-0" v-if="Trips">
+    <div class="row g-0">
       <div class="col-md-4 jpg rounded mx-auto d-block">
         <img :src="trip.photo.url" alt="Trip image" class="jpg" />
       </div>
@@ -11,18 +11,18 @@
             {{ trip.description }}
           </p>
           <p class="card-text">
-            <small class="text-muted">{{ trip.create - date }}</small>
+            <small class="text-muted">{{ trip.create_date }}</small>
           </p>
           <p class="card-text">
-            <small class="text-muted mr-5">ilosc like</small>
+            <small class="text-muted mr-5">{{ trip.likes }} </small>
             <i
+              v-if="trip.liked == false"
               class="far fa-heart likeHeart"
               @click="getLike(trip.id)"
-              v-if="!like"
             ></i>
             <i
-              class="fas fa-heart likeHeart"
               v-else
+              class="fas fa-heart likeHeart"
               @click="getUnlike(trip.id)"
             ></i>
           </p>
@@ -39,8 +39,9 @@ export default {
   name: "cardTrip",
   data() {
     return {
-      Trips: this.trips,
+      Trips: null,
       like: false,
+      url: null,
     };
   },
   props: { trips: null },
@@ -58,12 +59,14 @@ export default {
           );
           this.Trips = user.data.data;
           if (this.trips != null) this.Trips = this.trips;
+          if (user.data.data.photo.url != null)
+            this.url = user.data.data.photo.url;
           console.log(user.data.data);
         }
       }
     },
-    async getLike(tripID) {
-      const like = await axios.post("likes/trip/" + tripID, {
+    getLike(tripID) {
+      const like = axios.post("likes/trip/" + tripID, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },

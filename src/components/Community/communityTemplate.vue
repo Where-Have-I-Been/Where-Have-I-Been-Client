@@ -29,21 +29,37 @@
         <div class="col-sm">
           <drop-down-filter @sort="getSort"></drop-down-filter>
         </div>
-        <div class="col-sm">
+        <!-- <div class="col-sm">
           <drop-down-sort @filter="getFilter"></drop-down-sort>
-        </div>
+        </div> -->
       </div>
       <!-- asd -->
     </div>
-    <div class="cardTrip px-4">
-      <card-trip :trips="trips"></card-trip>
+    <div class="">
+      <!-- <filter-data></filter-data> -->
+    </div>
+    <!-- <div class="cardTrip px-4" v-if="trips">
+      <card-trip :trips="trips[0]"></card-trip>
+    </div> -->
+
+    <!--  -->
+    <div class="container-sm">
+      <div class="row justify-content-start">
+        <div class="col-md-3 pb-4"><filter-data></filter-data></div>
+        <div class="col-md-9">
+          <div class="cardTrip px-4" v-if="trips">
+            <card-trip :trips="trips[0]"></card-trip>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
 import dropDownFilter from "./dropDownFilter.vue";
-import dropDownSort from "./dropDownSort.vue";
+// import dropDownSort from "./dropDownSort.vue";
+import FilterData from "./FilterData.vue";
 import cardTrip from "./cardTrip.vue";
 import axios from "axios";
 
@@ -55,7 +71,7 @@ export default {
       sort: null,
     };
   },
-  components: { cardTrip, dropDownFilter, dropDownSort },
+  components: { cardTrip, dropDownFilter, FilterData },
   methods: {
     async getTrips() {
       const trips = await axios.get(
@@ -90,10 +106,10 @@ export default {
       });
       this.trips = sortTrip.data.data;
     },
-    getFilter(data){
+    getFilter(data) {
       console.log(data);
       this.trips = data;
-    }
+    },
   },
   mounted() {
     this.getTrips();

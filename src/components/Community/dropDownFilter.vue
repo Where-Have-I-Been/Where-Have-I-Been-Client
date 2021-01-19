@@ -5,7 +5,7 @@
       id="inputGroupSelect02"
       v-model="selectedFilter"
     >
-      <option disabled>Sort by</option>
+      <option disabled value="Sort by">Sort by</option>
       <option value="likes">Likes</option>
       <option value="created">Date Created</option>
       <option value="updated">Date Updated</option>
