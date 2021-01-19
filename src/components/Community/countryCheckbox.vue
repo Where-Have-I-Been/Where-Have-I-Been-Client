@@ -3,9 +3,9 @@
     <div class="form-check" v-for="(v, i) in countries" :key="i">
       <input
         class="form-check-input"
-        type="checkbox"
+        type="radio"
         id="flexCheckDefault"
-        :value="v.id"
+        :value="v.name"
         v-model="selected"
       />
       <label class="form-check-label" for="flexCheckDefault">
@@ -23,7 +23,7 @@ export default {
   data() {
     return {
       countries: null,
-      selected: [],
+      selected: null,
     };
   },
   methods: {
@@ -31,10 +31,16 @@ export default {
       const trips = await axios.get("countries");
       this.countries = trips.data.data;
     },
+    emitCountry(){
+      this.$emit("country", this.selected)
+    }
   },
   mounted() {
     this.getCountries();
   },
+  updated(){
+    this.emitCountry();
+  }
 };
 </script>
 

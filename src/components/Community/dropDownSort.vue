@@ -36,13 +36,13 @@
           <!-- card  -->
           <div class="modal-body">
             <div class="input-group flex-nowrap pb-4">
-              <input
+              <!-- <input
                 type="text"
                 class="form-control"
                 placeholder="search value"
                 aria-label="Username"
                 aria-describedby="addon-wrapping"
-              />
+              /> -->
             </div>
             <!-- Filtr more -->
             <select-more-filter @input="ValueOfFilter"></select-more-filter>
@@ -50,14 +50,36 @@
 
             <!-- card  -->
             <div class="card w-50 mx-auto">
-              <div class="card-body card-scrollable">
-                <ul class="list-group" v-if="FiltrByValue == 'Country/City'">
+              <div
+                class="card-body card-scrollable"
+                v-if="FiltrByValue == 'Country'"
+              >
+                <ul class="list-group">
                   <div>
-                    <country-checkbox :countries="countries"></country-checkbox>
+                    <country-checkbox
+                      :countries="countries"
+                      @country="setCountry"
+                    ></country-checkbox>
                   </div>
                 </ul>
               </div>
-              <button class="btn btn-primary mt-2" type="button">Apply</button>
+              <ul class="list-group" v-if="FiltrByValue == 'city'">
+                <div>
+                  <filtr-city @city="setCity"></filtr-city>
+                </div>
+              </ul>
+
+              <ul class="list-group" v-if="FiltrByValue == 'only-followings'">
+                <div>
+                  <follows-filter @follows="setFollows"></follows-filter>
+                </div>
+              </ul>
+              <ul class="list-group" v-if="FiltrByValue == 'only-liked'">
+                <div>
+                  <liked-filter @like="setLike"></liked-filter>
+                </div>
+              </ul>
+              <!-- <button class="btn btn-primary mt-2" type="button">Apply</button> -->
             </div>
           </div>
           <!-- card end -->
@@ -72,7 +94,9 @@
           >
             Close
           </button>
-          <button type="button" class="btn btn-primary">Save changes</button>
+          <button type="button" class="btn btn-primary" @click="saveChanges">
+            Save changes
+          </button>
         </div>
       </div>
     </div>
@@ -82,15 +106,30 @@
 <script>
 import countryCheckbox from "./countryCheckbox.vue";
 import SelectMoreFilter from "./Users/SelectMoreFilter.vue";
+import FiltrCity from "./FiltrCity.vue";
+import FollowsFilter from "./FollowsFilter.vue";
+import likedFilter from "./likedFilter.vue";
 import axios from "axios";
 export default {
   name: "ddf",
-  components: { countryCheckbox, SelectMoreFilter },
+  components: {
+    countryCheckbox,
+    SelectMoreFilter,
+    FiltrCity,
+    FollowsFilter,
+    likedFilter,
+  },
   data() {
     return {
       isActive: false,
       FiltrByValue: "",
       countries: null,
+      Filtr: {
+        city: "",
+        country: "",
+        like: false,
+        follows: false,
+      },
     };
   },
   methods: {
@@ -103,6 +142,37 @@ export default {
     async getCountries() {
       const countries = await axios.get("countries");
       this.countries = countries.data;
+    },
+    setCity(data) {
+      this.Filtr.city = data;
+    },
+    setLike(data) {
+      this.Filtr.like = data;
+    },
+    setCountry(data) {
+      this.Filtr.country = data;
+    },
+    setFollows(data) {
+      this.Filtr.follows = data;
+    },
+    async saveChanges() {
+      const filtr = await axios.get(
+        "trips?city=" +
+          this.Filtr.city +
+          "&county=" +
+          this.Filtr.country +
+          "&only-followings=" +
+          this.Filtr.follows +
+          "&only-liked=" +
+          this.Filtr.like,
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      );
+      console.log(filtr);
+      this.$emit("filter", filtr.data.data);
     },
   },
   mounted() {

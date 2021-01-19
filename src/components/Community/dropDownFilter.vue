@@ -6,10 +6,9 @@
       v-model="selectedFilter"
     >
       <option disabled>Sort by</option>
-      <option value="Country">Country</option>
-      <option value="City">City</option>
-      <option value="Likes">Likes</option>
-      <option value="Dates">Dates</option>
+      <option value="likes">Likes</option>
+      <option value="created">Date Created</option>
+      <option value="updated">Date Updated</option>
     </select>
   </div>
 </template>
@@ -19,8 +18,16 @@ export default {
   name: "DropDownFilter",
   data() {
     return {
-      selectedFilter: "",
+      selectedFilter: null,
     };
+  },
+  methods: {
+    sortEmit() {
+      this.$emit("sort", this.selectedFilter);
+    },
+  },
+  updated() {
+    this.sortEmit();
   },
 };
 </script>

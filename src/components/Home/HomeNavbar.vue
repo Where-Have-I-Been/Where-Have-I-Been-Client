@@ -42,7 +42,7 @@ export default {
       this.$router.push("/");
     },
     async getUser() {
-      const response = await axios.get("users", {
+      const response = await axios.get("user", {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },

@@ -23,13 +23,14 @@
             class="form-control"
             placeholder="Search Trip"
             aria-label="SearchTrip"
+            @keyup.enter="InputDown($event.target.value)"
           />
         </div>
         <div class="col-sm">
-          <drop-down-filter></drop-down-filter>
+          <drop-down-filter @sort="getSort"></drop-down-filter>
         </div>
         <div class="col-sm">
-          <drop-down-sort></drop-down-sort>
+          <drop-down-sort @filter="getFilter"></drop-down-sort>
         </div>
       </div>
       <!-- asd -->
@@ -51,6 +52,7 @@ export default {
   data() {
     return {
       trips: null,
+      sort: null,
     };
   },
   components: { cardTrip, dropDownFilter, dropDownSort },
@@ -66,10 +68,36 @@ export default {
       );
       this.trips = trips.data.data;
     },
+    async InputDown(text) {
+      if (text != null) {
+        const searchUser = await axios.get(
+          "trips-result?search-query=" + text,
+          {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("token")}`,
+            },
+          }
+        );
+        this.trips = searchUser.data.data;
+      }
+    },
+    async getSort(data) {
+      console.log(data);
+      const sortTrip = await axios.get("trips?sort=" + data, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      });
+      this.trips = sortTrip.data.data;
+    },
+    getFilter(data){
+      console.log(data);
+      this.trips = data;
+    }
   },
-  mounted(){
+  mounted() {
     this.getTrips();
-  }
+  },
 };
 </script>
 
@@ -77,5 +105,4 @@ export default {
 .search {
   display: inline-block;
 }
-
 </style>

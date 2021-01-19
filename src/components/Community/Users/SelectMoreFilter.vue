@@ -1,10 +1,11 @@
 <template>
   <div class="input-group mb-3">
     <select class="form-select" id="inputGroupSelect02" v-model="selected">
-      <option selected>Select more filter</option>
-      <option value="Followed Users">Followed Users</option>
-      <option value="Trips Like">Trips Like</option>
-      <option value="Country/City">Country/City</option>
+      <option selected disabled>Select more filter</option>
+      <option value="city">City</option>
+      <option value="Country">Country</option>
+      <option value="only-followings">Trips Followers</option>
+      <option value="only-liked">Likes Trips</option>
     </select>
   </div>
 </template>

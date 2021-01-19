@@ -53,7 +53,7 @@ export default {
   },
   components: { HomeNavbar },
   async created() {
-    const response = await axios.get("users", {
+    const response = await axios.get("user", {
       headers: {
         Authorization: `Bearer ${localStorage.getItem("token")}`,
       },
