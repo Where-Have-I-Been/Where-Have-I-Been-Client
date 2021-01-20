@@ -14,10 +14,12 @@ export default {
     };
   },
   methods: {
-    cityEmit(data) {
-      this.$emit("city", data);
-      this.city = "";
+    cityEmit() {
+      this.$emit("city", this.city);
     },
+  },
+  updated() {
+    this.cityEmit();
   },
 };
 </script>

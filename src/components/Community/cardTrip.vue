@@ -5,7 +5,7 @@
         <img :src="trip.photo.url" alt="Trip image" class="jpg" />
       </div>
       <div class="col-md-8">
-        <div class="card-body">
+        <div class="card-body centerTextMd">
           <h5 class="card-title">{{ trip.name }}</h5>
           <p class="card-text">
             {{ trip.description }}
@@ -16,7 +16,7 @@
           <p class="card-text">
             <small class="text-muted mr-5">{{ trip.likes }} </small>
             <i
-              v-if="trip.liked == false"
+              v-if="trip.liked == !true"
               class="far fa-heart likeHeart"
               @click="getLike(trip.id)"
             ></i>
@@ -65,23 +65,29 @@ export default {
         }
       }
     },
-    getLike(tripID) {
-      const like = axios.post("likes/trip/" + tripID, {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-      });
-      console.log(like);
-      this.like = true;
+    async getLike(tripID) {
+      try {
+        const like = await axios.post("likes/trip/" + tripID, {
+          headers: {
+            Authorization: "Bearer " + localStorage.getItem("token"),
+          },
+        });
+        console.log(like);
+      } catch (e) {
+        console.log(e);
+      }
     },
     async getUnlike(tripID) {
-      const like = await axios.delete("likes/trip/" + tripID, {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-      });
-      console.log(like);
-      this.like = false;
+      try {
+        const like = await axios.delete("likes/trip/" + tripID, {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        });
+        console.log(like);
+      } catch (e) {
+        console.log(e);
+      }
     },
   },
   mounted() {
@@ -97,6 +103,13 @@ export default {
 .jpg {
   width: 200px;
   height: 200px;
+}
+
+@media (min-width: 768px) and (max-width: 992px) {
+  .centerTextMd {
+    text-align: center;
+    padding-left: 50%;
+  }
 }
 
 .likeHeart {

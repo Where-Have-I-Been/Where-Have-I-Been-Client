@@ -23,32 +23,25 @@
             class="form-control"
             placeholder="Search Trip"
             aria-label="SearchTrip"
+            v-model="searchInput"
             @keyup.enter="InputDown($event.target.value)"
           />
         </div>
         <div class="col-sm">
           <drop-down-filter @sort="getSort"></drop-down-filter>
         </div>
-        <!-- <div class="col-sm">
-          <drop-down-sort @filter="getFilter"></drop-down-sort>
-        </div> -->
       </div>
-      <!-- asd -->
     </div>
     <div class="">
-      <!-- <filter-data></filter-data> -->
-    </div>
-    <!-- <div class="cardTrip px-4" v-if="trips">
-      <card-trip :trips="trips[0]"></card-trip>
-    </div> -->
-
-    <!--  -->
-    <div class="container-sm">
-      <div class="row justify-content-start">
-        <div class="col-md-3 pb-4"><filter-data></filter-data></div>
-        <div class="col-md-9">
-          <div class="cardTrip px-4" v-if="trips">
-            <card-trip :trips="trips[0]"></card-trip>
+      <div class="container-sm">
+        <div class="row justify-content-start">
+          <div class="col-md-3 pb-4">
+            <filter-data @filters="getFilters"></filter-data>
+          </div>
+          <div class="col-md-9">
+            <div class="cardTrip px-4" v-if="trips">
+              <card-trip :trips="trips[0]"></card-trip>
+            </div>
           </div>
         </div>
       </div>
@@ -69,6 +62,13 @@ export default {
     return {
       trips: null,
       sort: null,
+      searchInput: "",
+      filter: {
+        city: "",
+        country: "",
+        like: false,
+        follows: false,
+      },
     };
   },
   components: { cardTrip, dropDownFilter, FilterData },
@@ -85,30 +85,42 @@ export default {
       this.trips = trips.data.data;
     },
     async InputDown(text) {
+      let search = "trips?sort="+ this.sort +"&country="+this.filter.country+"&city="+this.filter.city+"&only-followings="+this.filter.follows+"&only-liked="+this.filter.like+"&search-query=";
+      
+
       if (text != null) {
-        const searchUser = await axios.get(
-          "trips-result?search-query=" + text,
-          {
-            headers: {
-              Authorization: `Bearer ${localStorage.getItem("token")}`,
-            },
-          }
-        );
+        const searchUser = await axios.get(search + text, {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        });
         this.trips = searchUser.data.data;
       }
     },
     async getSort(data) {
-      console.log(data);
-      const sortTrip = await axios.get("trips?sort=" + data, {
+      let search = "trips?country="+this.filter.country+"&city="+this.filter.city+"&only-followings="+this.filter.follows+"&only-liked="+this.filter.like+"&search-query="+this.searchInput+ "&sort=";
+      
+      const sortTrip = await axios.get(search + data, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
       });
       this.trips = sortTrip.data.data;
     },
-    getFilter(data) {
-      console.log(data);
-      this.trips = data;
+    async getFilters(data) {
+      this.filter.city = data.city;
+      this.filter.country = data.country;
+      this.filter.like = data.like;
+      this.filter.follows = data.follows;
+
+      let search = "trips?sort="+ this.sort +"&country="+this.filter.country+"&city="+this.filter.city+"&only-followings="+this.filter.follows+"&only-liked="+this.filter.like+"&search-query="+this.searchInput
+      
+      const filterTrip = await axios.get(search, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      });
+      this.trips = filterTrip.data.data;
     },
   },
   mounted() {

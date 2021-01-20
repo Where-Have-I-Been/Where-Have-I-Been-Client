@@ -19,8 +19,8 @@ export default {
   name: "countryCheckbox",
   data() {
     return {
-      countries: null,
-      selected: null,
+      countries: "",
+      selected: "",
     };
   },
   methods: {
