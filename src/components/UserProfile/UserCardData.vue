@@ -4,13 +4,13 @@
       <div class="container">
         <div class="row">
           <img
-            v-if="publicProfile.image"
+            v-if="publicProfile.image && id"
             alt="img"
             class="ProfileImgAvatar rounded-circle"
             :src="publicProfile.image"
           />
           <img
-            v-else-if="user"
+            v-else-if="user && id == undefined"
             alt="img"
             class="ProfileImgAvatar rounded-circle"
             :src="user.photo.url"
@@ -23,7 +23,10 @@
           />
           <div class="col-sm">
             <strong v-if="publicProfile.name"> {{ publicProfile.name }}</strong>
-            <strong v-else-if="user"> {{ user.name }} </strong>
+            <strong v-else-if="id && publicProfile.name == null"
+              >New User</strong
+            >
+            <strong v-else-if="user && id == undefined"> {{ user.name }} </strong>
             <strong v-else>New User</strong>
             <p v-if="publicProfile.code">
               {{ publicProfile.code }}
@@ -33,7 +36,7 @@
                 class="ProfilFlagImg rounded-circle"
               />
             </p>
-            <p v-else-if="user">
+            <p v-else-if="user && id == undefined">
               {{ user.nationality.code }}
               <img
                 :src="user.nationality.flag"
@@ -43,14 +46,6 @@
             </p>
           </div>
           <div class="col-md">
-            <button
-              type="button"
-              class="btn btn-info ml-3 float-end FollowButton"
-              v-if="id"
-              @click="handleAddFriend(id)"
-            >
-              Add Friend +
-            </button>
             <button
               type="button"
               class="btn btn-secondary float-end addFriendButton"
@@ -125,9 +120,6 @@ export default {
       } catch (e) {
         console.log(e);
       }
-    },
-    handleAddFriend(id) {
-      console.log(id);
     },
     async handleUnfollowButton(id) {
       const unfollow = await axios.delete("follows/user/" + id, {

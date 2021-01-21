@@ -5,7 +5,7 @@
       <p class="card-text px-3 pt-4 pb-4" v-if="aboutDiffUser">
         {{ aboutDiffUser }}
       </p>
-      <p class="card-text px-3 pt-4 pb-4" v-else-if="user">
+      <p class="card-text px-3 pt-4 pb-4" v-else-if="user && id == undefined">
         {{ user.description }}
       </p>
     </div>

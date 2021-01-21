@@ -38,11 +38,14 @@ body {
 }
 
 .tripScroll {
-  height: 280px;
+  height: 80%;
   overflow-y: scroll;
 }
 
 .card3-2 {
+  width: 40vw;
+}
+.card3-1 {
   width: 40vw;
 }
 

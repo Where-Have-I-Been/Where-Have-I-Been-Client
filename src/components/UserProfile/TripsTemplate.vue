@@ -36,17 +36,17 @@ export default {
   },
   methods: {
     async getUserTrips() {
+      let trip = "";
+      if (this.id == undefined)
+        trip = "trips/user/" + localStorage.getItem("userID");
+      else trip = "trips/user/" + this.id;
       if (this.id == undefined) {
-        const user = await axios.get(
-          "trips/user/" + localStorage.getItem("userID"),
-          {
-            headers: {
-              Authorization: `Bearer ${localStorage.getItem("token")}`,
-            },
-          }
-        );
+        const user = await axios.get(trip, {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        });
         this.Trips = user.data.data;
-        console.log(user.data.data);
       }
     },
     async getDiffUserTrips() {
@@ -57,13 +57,12 @@ export default {
           },
         });
         this.Trips = user.data.data;
-        console.log(user.data.data);
       }
     },
   },
   mounted() {
     this.getUserTrips();
-    this.getDiffUserTrips();
+    // this.getDiffUserTrips();
   },
 };
 </script>
