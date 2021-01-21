@@ -26,7 +26,8 @@
                 type="text"
                 class="form-control"
                 id="floatingInputValue"
-                @change="searchUser($event.target.value)"
+                v-model="searchUserInput"
+                @keyup.enter="searchUser($event.target.value)"
               />
               <label for="floatingInputValue">Search User</label>
             </form>
@@ -50,7 +51,7 @@
         </div>
       </div>
       <div class="d-flex justify-content-evenly flex-wrap mt-4">
-        <user-card :FollowedUsers="FollowedUsers"></user-card>
+        <user-card :FollowedUsers="FollowedUsers" :show="unfollow"></user-card>
       </div>
     </div>
     <nav aria-label="Page navigation example" v-if="filterSelected == 'All'">
@@ -93,11 +94,11 @@ export default {
   data() {
     return {
       FollowedUsers: null,
+      unfollow: false,
       searchUserInput: "",
       filterSelected: "All",
       page: 1,
       maxPage: 1,
-      paginate: null,
     };
   },
   methods: {
@@ -105,11 +106,13 @@ export default {
       let getUsers = "";
       if (this.filterSelected === "Followed") {
         getUsers = "following/user/" + localStorage.getItem("userID");
+        this.unfollow = true;
       } else if (this.filterSelected === "Following") {
         getUsers = "followers/user/" + localStorage.getItem("userID");
+        this.unfollow = false;
       } else if (this.filterSelected === "All") {
-        console.log(this.page);
         getUsers = "users?per-page=9&page=" + this.page;
+        this.unfollow = false;
       }
 
       const fu = await axios.get(getUsers, {
@@ -118,15 +121,22 @@ export default {
         },
       });
       this.FollowedUsers = fu.data.data;
-      this.paginate = fu.data.pagination;
       if (this.filterSelected === "All") {
         this.maxPage = Math.ceil(
           fu.data.pagination.total / fu.data.pagination.count
         );
       }
     },
-    searchUser(data) {
-      this.searchUserInput = data;
+    async searchUser(data) {
+      let search = "users";
+      if (data != "") search = "users?search-query=" + data;
+      else if (data == "") search = "users";
+      const fu = await axios.get(search, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      });
+      this.FollowedUsers = fu.data.data;
     },
   },
   mounted() {

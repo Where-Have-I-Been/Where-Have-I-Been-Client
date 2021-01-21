@@ -69,7 +69,7 @@ export default {
       try {
         const like = await axios.post("likes/trip/" + tripID, {
           headers: {
-            Authorization: "Bearer " + localStorage.getItem("token"),
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
         });
         console.log(like);

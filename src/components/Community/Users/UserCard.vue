@@ -27,7 +27,7 @@
           href="#"
           class="btn btn-secondary"
           @click="handleFollow(item.id)"
-          v-if="show == 'follow'"
+          v-if="show == true"
           >Unfollow</a
         >
       </div>
