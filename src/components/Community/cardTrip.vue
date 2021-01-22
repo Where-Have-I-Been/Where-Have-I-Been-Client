@@ -18,12 +18,12 @@
             <i
               v-if="trip.liked == !true"
               class="far fa-heart likeHeart"
-              @click="getLike(trip.id)"
+              @click="getLike(trip)"
             ></i>
             <i
               v-else
               class="fas fa-heart likeHeart"
-              @click="getUnlike(trip.id)"
+              @click="getUnlike(trip)"
             ></i>
           </p>
         </div>
@@ -65,26 +65,29 @@ export default {
         }
       }
     },
-    async getLike(tripID) {
+    async getLike(trip) {
       try {
-        const like = await axios.post("likes/trip/" + tripID, {
+         await axios.post("likes/trip/" + trip.id, null,{
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
         });
-        console.log(like);
+
+        trip.liked = true;
+        trip.likes++;
       } catch (e) {
         console.log(e);
       }
     },
-    async getUnlike(tripID) {
+    async getUnlike(trip) {
       try {
-        const like = await axios.delete("likes/trip/" + tripID, {
+         await axios.delete("likes/trip/" + trip.id, {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
         });
-        console.log(like);
+        trip.liked = false;
+        trip.likes--;
       } catch (e) {
         console.log(e);
       }

@@ -5,7 +5,6 @@
       id="inputGroupSelect02"
       v-model="selectedFilter"
     >
-      <option disabled value="Sort by">Sort by</option>
       <option value="likes">Likes</option>
       <option value="created">Date Created</option>
       <option value="updated">Date Updated</option>
@@ -18,7 +17,7 @@ export default {
   name: "DropDownFilter",
   data() {
     return {
-      selectedFilter: null,
+      selectedFilter: "likes",
     };
   },
   methods: {

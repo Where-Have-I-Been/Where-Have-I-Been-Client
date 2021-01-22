@@ -42,10 +42,10 @@
                 @change="fetchApi"
               >
                 <option value="All">All</option>
-                <option value="Followed">Followed</option>
-                <option value="Following">Follow You</option>
+                <option value="Followed">Followers</option>
+                <option value="Following">Followings</option>
               </select>
-              <label for="floatingSelect">Sort By</label>
+              <label for="floatingSelect">Filter By</label>
             </div>
           </div>
         </div>
@@ -66,14 +66,8 @@
             >Previous</a
           >
         </li>
-        <li class="page-item">
-          <a class="page-link" href="#ad" @click="fetchApi(), (page = 1)">1</a>
-        </li>
-        <li class="page-item">
-          <a class="page-link" href="#ad" @click="fetchApi(), (page = 2)">2</a>
-        </li>
-        <li class="page-item">
-          <a class="page-link" href="#ad" @click="fetchApi(), (page = 3)">3</a>
+        <li class="page-item disabled">
+          <a class="page-link"> {{ page }}</a>
         </li>
         <li class="page-item" :class="{ disabled: page == maxPage }">
           <a class="page-link" href="#ad" @click="fetchApi(), (page += 1)"

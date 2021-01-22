@@ -103,8 +103,8 @@ export default {
         this.success = response.data;
         location.reload();
       } catch (e) {
-        console.log(e);
-        this.error = e.message;
+        console.log(e.response);
+        this.error = e.response.data.message;
       }
     },
     getUsername(data) {

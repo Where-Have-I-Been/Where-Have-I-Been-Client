@@ -61,7 +61,7 @@ export default {
   data() {
     return {
       trips: null,
-      sort: null,
+      sort: "likes",
       searchInput: "",
       filter: {
         city: "",
