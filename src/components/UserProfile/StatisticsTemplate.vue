@@ -1,61 +1,91 @@
 <template>
-  <h5 class="card-title text-center"><strong>Statistics</strong></h5>
-  <canvas id="myChart" width="400" height="400"></canvas>
+  <div class="container">
+    <div class="row mt-3 pt-3" style="background-color: #eeeeee">
+      <div class="col-md-6">
+        <div class="card-group">
+          <div class="card mb-4">
+            <div class="card-body">
+              <h6 class="card-title">Likes:</h6>
+              <p class="card-text blue-text">
+                <i class="fas fa-thumbs-up fa-2x"></i
+                ><span class="ml-2" style="font-size: 30px">{{
+                  data.likes_count
+                }}</span>
+              </p>
+            </div>
+          </div>
+          <div class="card mb-4">
+            <div class="card-body">
+              <h6 class="card-title">Followers:</h6>
+              <p class="card-text red-text">
+                <i class="fas fa-users fa-2x"></i
+                ><span class="ml-2" style="font-size: 30px">{{
+                  data.followers_count
+                }}</span>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-6">
+        <div class="card-group">
+          <div class="card mb-4">
+            <div class="card-body">
+              <h6 class="card-title">Followings:</h6>
+
+              <p class="card-text green-text">
+                <i class="fas fa-user fa-2x"></i
+                ><span class="ml-2" style="font-size: 30px">{{
+                  data.followings_count
+                }}</span>
+              </p>
+            </div>
+          </div>
+          <div class="card mb-4">
+            <div class="card-body">
+              <h6 class="card-title">Visited places:</h6>
+              <p class="card-text red-text">
+                <i class="fas fa-map-marked-alt fa-2x"></i><span class="ml-2" style="font-size: 30px">{{
+                  data.visited_places_count
+                }}</span>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>
-import Chart from "../../../node_modules/chart.js/dist/Chart.js";
+import axios from "axios";
 
 export default {
   name: "Profil",
+  data() {
+    return {
+      data: [],
+      id: this.$route.params.id,
+    };
+  },
   methods: {
-    DrawChart() {
-      var ctx = document.getElementById("myChart").getContext("2d");
-      var myChart = new Chart(ctx, {
-        type: "bar",
-        data: {
-          labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
-          datasets: [
-            {
-              label: "# of Votes",
-              data: [12, 19, 3, 5, 2, 3],
-              backgroundColor: [
-                "rgba(255, 99, 132, 0.2)",
-                "rgba(54, 162, 235, 0.2)",
-                "rgba(255, 206, 86, 0.2)",
-                "rgba(75, 192, 192, 0.2)",
-                "rgba(153, 102, 255, 0.2)",
-                "rgba(255, 159, 64, 0.2)",
-              ],
-              borderColor: [
-                "rgba(255, 99, 132, 1)",
-                "rgba(54, 162, 235, 1)",
-                "rgba(255, 206, 86, 1)",
-                "rgba(75, 192, 192, 1)",
-                "rgba(153, 102, 255, 1)",
-                "rgba(255, 159, 64, 1)",
-              ],
-              borderWidth: 1,
-            },
-          ],
-        },
-        options: {
-          scales: {
-            yAxes: [
-              {
-                ticks: {
-                  beginAtZero: true,
-                },
-              },
-            ],
-          },
+    async fetchStatitic() {
+      let userStat = "";
+      if (this.id == undefined)
+        userStat = "user-statistics/" + localStorage.getItem("userID");
+      else userStat = "user-statistics/" + this.id;
+      const stat = await axios.get(userStat, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
       });
-      console.log(myChart);
+      this.data = stat.data;
+      this.folowers = stat.data.followers_count;
     },
   },
   mounted() {
-    this.DrawChart();
+    this.fetchStatitic();
   },
 };
 </script>
