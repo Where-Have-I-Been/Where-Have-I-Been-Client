@@ -18,6 +18,7 @@
       v-else
     />
     <div class="card-body">
+      <h4 class="card-title" v-if="item.name">{{ item.name }}</h4>
       <h5 class="card-title">{{ item.email }}</h5>
       <div class="row g-3">
         <a class="btn btn-primary" @click="$router.push('/profil/' + item.id)"
@@ -61,7 +62,8 @@ export default {
 </script>
 
 <style>
-.jpg, .imageAvatarSize {
+.jpg,
+.imageAvatarSize {
   width: 200px;
   height: 200px;
   margin-left: auto;

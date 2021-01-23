@@ -39,11 +39,11 @@
                 id="floatingSelect"
                 aria-label="Floating label select example"
                 v-model="filterSelected"
-                @change="fetchApi"
+                @change="handleselectChange"
               >
                 <option value="All">All Users</option>
-                <option value="Followed">Followers Users</option>
-                <option value="Following">Followings Users</option>
+                <option value="Followed">Users by Followers</option>
+                <option value="Following">Users by Following</option>
               </select>
               <label for="floatingSelect">Filter By</label>
             </div>
@@ -54,7 +54,7 @@
         <user-card :FollowedUsers="FollowedUsers" :show="unfollow"></user-card>
       </div>
     </div>
-    <nav aria-label="Page navigation example" v-if="filterSelected == 'All'">
+    <nav aria-label="Page navigation example">
       <ul class="pagination justify-content-center">
         <li class="page-item" :class="{ disabled: page == 1 }">
           <a
@@ -100,13 +100,13 @@ export default {
     async fetchApi() {
       let getUsers = "";
       if (this.filterSelected === "Followed") {
-        getUsers = "following/user/" + localStorage.getItem("userID");
+        getUsers = "users?by-followings=true&per-page=9&page=" + this.page;
         this.unfollow = true;
       } else if (this.filterSelected === "Following") {
-        getUsers = "followers/user/" + localStorage.getItem("userID");
+        getUsers = "users?by-followers=true&per-page=9&page=" + this.page;
         this.unfollow = false;
       } else if (this.filterSelected === "All") {
-        getUsers = "users?per-page=9&page=" + this.page;
+        getUsers = "users?&per-page=9&page=" + this.page;
         this.unfollow = false;
       }
 
@@ -116,23 +116,39 @@ export default {
         },
       });
       this.FollowedUsers = fu.data.data;
-      if (this.filterSelected === "All") {
-        this.maxPage = Math.ceil(
-          fu.data.pagination.total / fu.data.pagination.count
-        );
-      }
+      this.maxPage = Math.ceil(
+        fu.data.pagination.total / fu.data.pagination.count
+      );
     },
     async searchUser(data) {
       let search = "users";
-      if (data != "") search = "users?search-query=" + data;
-      else if (data == "") search = "users";
+      if (data == "") search = "users";
+      else if (this.filterSelected === "All")
+        search = "users?search-query=" + data;
+      else if (this.filterSelected === "Followed")
+        search =
+          "users?by-followings=true&search-query=" +
+          data +
+          "&per-page=9&page=" +
+          this.page;
+      else if (this.filterSelected === "Following")
+        search =
+          "users?by-followers=true&search-query=" +
+          data +
+          "&per-page=9&page=" +
+          this.page;
       const fu = await axios.get(search, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
       });
+      console.log(search);
       this.FollowedUsers = fu.data.data;
     },
+    handleselectChange(){
+      this.page = 1;
+      this.fetchApi();
+    }
   },
   mounted() {
     this.fetchApi();
