@@ -42,6 +42,29 @@
             <div class="cardTrip px-4" v-if="trips">
               <card-trip :trips="trips[0]"></card-trip>
             </div>
+            <nav aria-label="Page navigation example">
+              <ul class="pagination justify-content-center">
+                <li
+                  class="page-item cursor"
+                  @click="page-- && getSort()"
+                  :class="{ disabled: page <= 1 }"
+                >
+                  <a class="page-link" :class="{ disabled: page == 1 }"
+                    >Previous</a
+                  >
+                </li>
+                <li class="page-item cursor disabled">
+                  <a class="page-link"> {{ page }}</a>
+                </li>
+                <li
+                  class="page-item cursor"
+                  @click="page++ && getSort()"
+                  :class="{ disabled: page == maxPage }"
+                >
+                  <a class="page-link">Next</a>
+                </li>
+              </ul>
+            </nav>
           </div>
         </div>
       </div>
@@ -51,7 +74,6 @@
 
 <script>
 import dropDownFilter from "./dropDownFilter.vue";
-// import dropDownSort from "./dropDownSort.vue";
 import FilterData from "./FilterData.vue";
 import cardTrip from "./cardTrip.vue";
 import axios from "axios";
@@ -61,8 +83,10 @@ export default {
   data() {
     return {
       trips: null,
-      sort: "likes",
+      sort: "",
       searchInput: "",
+      page: 1,
+      maxPage: 1,
       filter: {
         city: "",
         country: "",
@@ -85,27 +109,60 @@ export default {
       this.trips = trips.data.data;
     },
     async InputDown(text) {
-      let search = "trips?sort="+ this.sort +"&country="+this.filter.country+"&city="+this.filter.city+"&only-followings="+this.filter.follows+"&only-liked="+this.filter.like+"&search-query=";
-      
+      let search =
+        "trips?sort=" +
+        this.sort +
+        "&country=" +
+        this.filter.country +
+        "&city=" +
+        this.filter.city +
+        "&only-followings=" +
+        this.filter.follows +
+        "&only-liked=" +
+        this.filter.like +
+        "&search-query=";
 
       if (text != null) {
-        const searchUser = await axios.get(search + text, {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-        });
+        const searchUser = await axios.get(
+          search + text + "&per-page=3&page=" + this.page,
+          {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("token")}`,
+            },
+          }
+        );
         this.trips = searchUser.data.data;
+        this.maxPage = Math.ceil(
+          searchUser.data.pagination.total / searchUser.data.pagination.count
+        );
       }
     },
     async getSort(data) {
-      let search = "trips?country="+this.filter.country+"&city="+this.filter.city+"&only-followings="+this.filter.follows+"&only-liked="+this.filter.like+"&search-query="+this.searchInput+ "&sort=";
-      
-      const sortTrip = await axios.get(search + data, {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-      });
+      let search =
+        "trips?country=" +
+        this.filter.country +
+        "&city=" +
+        this.filter.city +
+        "&only-followings=" +
+        this.filter.follows +
+        "&only-liked=" +
+        this.filter.like +
+        "&search-query=" +
+        this.searchInput +
+        "&sort=";
+
+      const sortTrip = await axios.get(
+        search + data + "&per-page=3&page=" + this.page,
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      );
       this.trips = sortTrip.data.data;
+      this.maxPage = Math.ceil(
+        sortTrip.data.pagination.total / sortTrip.data.pagination.count
+      );
     },
     async getFilters(data) {
       this.filter.city = data.city;
@@ -113,14 +170,32 @@ export default {
       this.filter.like = data.like;
       this.filter.follows = data.follows;
 
-      let search = "trips?sort="+ this.sort +"&country="+this.filter.country+"&city="+this.filter.city+"&only-followings="+this.filter.follows+"&only-liked="+this.filter.like+"&search-query="+this.searchInput
-      
-      const filterTrip = await axios.get(search, {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-      });
+      let search =
+        "trips?sort=" +
+        this.sort +
+        "&country=" +
+        this.filter.country +
+        "&city=" +
+        this.filter.city +
+        "&only-followings=" +
+        this.filter.follows +
+        "&only-liked=" +
+        this.filter.like +
+        "&search-query=" +
+        this.searchInput;
+
+      const filterTrip = await axios.get(
+        search + "&per-page=3&page=" + this.page,
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      );
       this.trips = filterTrip.data.data;
+      this.maxPage = Math.ceil(
+        filterTrip.data.pagination.total / filterTrip.data.pagination.count
+      );
     },
   },
   mounted() {
@@ -136,5 +211,9 @@ export default {
 
 .inputSearch {
   height: 9.5vh;
+}
+
+.cursor {
+  cursor: pointer;
 }
 </style>

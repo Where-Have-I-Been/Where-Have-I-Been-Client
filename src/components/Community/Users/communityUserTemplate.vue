@@ -63,6 +63,7 @@
             tabindex="-1"
             aria-disabled="true"
             @click="fetchApi(), (page -= 1)"
+            :class="{ disabled: page == 1 }"
             >Previous</a
           >
         </li>

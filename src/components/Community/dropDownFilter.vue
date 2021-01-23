@@ -19,7 +19,7 @@ export default {
   name: "DropDownFilter",
   data() {
     return {
-      selectedFilter: "likes",
+      selectedFilter: "",
     };
   },
   methods: {
