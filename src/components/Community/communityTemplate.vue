@@ -20,7 +20,7 @@
         <div class="col-sm-7">
           <input
             type="text"
-            class="form-control"
+            class="form-control inputSearch"
             placeholder="Search Trip"
             aria-label="SearchTrip"
             v-model="searchInput"
@@ -132,5 +132,9 @@ export default {
 <style>
 .search {
   display: inline-block;
+}
+
+.inputSearch {
+  height: 9.5vh;
 }
 </style>

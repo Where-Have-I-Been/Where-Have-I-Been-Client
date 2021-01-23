@@ -7,7 +7,7 @@
   >
     <img
       :src="item.avatar.url"
-      class="card-img-top"
+      class="card-img-top imageAvatarSize"
       alt="..."
       v-if="item.avatar"
     />
@@ -61,8 +61,10 @@ export default {
 </script>
 
 <style>
-.jpg {
+.jpg, .imageAvatarSize {
   width: 200px;
   height: 200px;
+  margin-left: auto;
+  margin-right: auto;
 }
 </style>

@@ -41,9 +41,9 @@
                 v-model="filterSelected"
                 @change="fetchApi"
               >
-                <option value="All">All</option>
-                <option value="Followed">Followers</option>
-                <option value="Following">Followings</option>
+                <option value="All">All Users</option>
+                <option value="Followed">Followers Users</option>
+                <option value="Following">Followings Users</option>
               </select>
               <label for="floatingSelect">Filter By</label>
             </div>

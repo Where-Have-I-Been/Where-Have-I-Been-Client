@@ -1,14 +1,16 @@
 <template>
-  <div class="input-group mb-3">
+  <div class="form-floating">
     <select
       class="form-select"
-      id="inputGroupSelect02"
+      id="floatingSelect"
+      aria-label="Floating label select example"
       v-model="selectedFilter"
     >
       <option value="likes">Likes</option>
       <option value="created">Date Created</option>
       <option value="updated">Date Updated</option>
     </select>
+    <label for="floatingSelect">Sort By</label>
   </div>
 </template>
 
