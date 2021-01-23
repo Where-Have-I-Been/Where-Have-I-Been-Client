@@ -6,7 +6,7 @@
   >
     <div class="row g-0" v-if="Trips">
       <div class="col-md-4" v-if="trip.photo">
-        <img :src="trip.photo.id" alt="img" class="tripSingleImage" />
+        <img :src="trip.photo.url" alt="img" class="tripSingleImage" />
       </div>
       <div class="col-md-8">
         <div class="card-body">
@@ -14,8 +14,21 @@
           <p class="card-text">
             {{ trip.description }}
           </p>
+          <p class="card-text" v-if="trip.created_date">
+            <small class="text-muted">Date: {{ trip.created_date }}</small>
+          </p>
           <p class="card-text">
-            <small class="text-muted">Data: 10.12.2020</small>
+            <small class="text-muted mr-5">{{ trip.likes }} </small>
+            <i
+              v-if="trip.liked == !true"
+              class="far fa-heart likeHeart"
+              @click="getLike(trip)"
+            ></i>
+            <i
+              v-else
+              class="fas fa-heart likeHeart"
+              @click="getUnlike(trip)"
+            ></i>
           </p>
         </div>
       </div>
@@ -30,39 +43,37 @@ export default {
   name: "Trip Template",
   data() {
     return {
-      Trips: null,
       id: this.$route.params.id,
     };
   },
+  props: { Trips: null },
   methods: {
-    async getUserTrips() {
-      let trip = "";
-      if (this.id == undefined)
-        trip = "trips/user/" + localStorage.getItem("userID");
-      else trip = "trips/user/" + this.id;
-      if (this.id == undefined) {
-        const user = await axios.get(trip, {
+    async getLike(trip) {
+      try {
+        await axios.post("likes/trip/" + trip.id, null, {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
         });
-        this.Trips = user.data.data;
+        trip.liked = true;
+        trip.likes++;
+      } catch (e) {
+        console.log(e);
       }
     },
-    async getDiffUserTrips() {
-      if (this.id) {
-        const user = await axios.get("trips/user/" + this.id, {
+    async getUnlike(trip) {
+      try {
+        await axios.delete("likes/trip/" + trip.id, {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
         });
-        this.Trips = user.data.data;
+        trip.liked = false;
+        trip.likes--;
+      } catch (e) {
+        console.log(e);
       }
     },
-  },
-  mounted() {
-    this.getUserTrips();
-    // this.getDiffUserTrips();
   },
 };
 </script>
@@ -70,5 +81,9 @@ export default {
 <style>
 .tripSingleImage {
   width: 100%;
+}
+
+.likeHeart {
+  cursor: pointer;
 }
 </style>
