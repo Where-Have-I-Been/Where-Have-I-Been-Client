@@ -31,9 +31,6 @@
                 aria-expanded="false"
                 @click="ToogleMenu()"
               >
-                <i class="fas fa-envelope navbar-brand"
-                  ><span class="badge badge-primary notifColor">12</span></i
-                >
                 <img
                   v-if="photo"
                   :src="photo"
@@ -56,10 +53,19 @@
                 v-bind:class="{ show: toggleMenu }"
               >
                 <router-link to="/profil" class="dropdown-item"
-                  >Profile</router-link
+                  ><i class="fas fa-user"></i> Profile</router-link
+                >
+                <router-link to="/community" class="dropdown-item"
+                  ><i class="fas fa-comments"></i> Community</router-link
+                >
+                <router-link to="/userProfile" class="dropdown-item"
+                  ><i class="fas fa-cogs"></i> Settings</router-link
+                >
+                <router-link to="/feed" class="dropdown-item"
+                  ><i class="fas fa-rss"></i> Feed</router-link
                 >
                 <router-link to="/" class="dropdown-item" @click="handleLogout"
-                  >Log out</router-link
+                  ><i class="fas fa-sign-out-alt"></i> Log out</router-link
                 >
               </ul>
             </li>
