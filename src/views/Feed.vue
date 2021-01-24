@@ -2,20 +2,8 @@
   <div>
     <nav-bar></nav-bar>
     <div class="container">
-      <div class="notification">
-        <notification></notification>
-      </div>
-
-      <div class="notification">
-        <like-your-trip></like-your-trip>
-      </div>
-
-      <div class="notification">
-        <someone-add-new-trip></someone-add-new-trip>
-      </div>
-
-      <div class="notification">
-        <follow-you></follow-you>
+      <div class="notification pt-5">
+        <notification :notification="notification"></notification>
       </div>
     </div>
   </div>
@@ -23,19 +11,35 @@
 
 <script>
 import notification from "../components/Feed/notification.vue";
-import likeYourTrip from "../components/Feed/likeYourTrip.vue";
-import someoneAddNewTrip from "../components/Feed/someoneAddNewTrip.vue";
-import followYou from "../components/Feed/followYou.vue";
 import NavBar from "../components/NavBar.vue";
+import axios from "axios";
 
 export default {
   name: "Feed",
+  data() {
+    return {
+      notification: null,
+    };
+  },
+  methods: {
+    async fetchFeed() {
+      const notif = await axios.get(
+        "notifications/" + localStorage.getItem("userID"),
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      );
+      this.notification = notif.data.data;
+    },
+  },
+  mounted() {
+    this.fetchFeed();
+  },
   components: {
     notification,
     NavBar,
-    likeYourTrip,
-    someoneAddNewTrip,
-    followYou,
   },
 };
 </script>
