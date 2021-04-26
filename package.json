@@ -11,7 +11,7 @@
     "axios": "^0.21.1",
     "bootstrap": "^5.0.0-beta1",
     "chart.js": "^2.9.4",
-    "core-js": "^3.8.1",
+    "core-js": "^3.11.0",
     "vue": "^3.0.4",
     "vue-router": "^4.0.0-rc.6",
     "vuex": "^4.0.0-rc.2"
